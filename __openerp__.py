@@ -1,10 +1,12 @@
 {
     'name':'ITI HR',
     'version': '1.0',
-    'depends':[],
+    'depends':['hr','hr_attendance'],
     'description': """
 ITI HR
 ==========================
     """,
-    'data': [],
+    'data': [
+        'odoo_hr_view.xml'
+    ],
 }
