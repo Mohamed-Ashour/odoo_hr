@@ -1,34 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-      <!--   hr_attendance.view_attendance_form  -->
-        <record id="view_attendance_form_inherit" model="ir.ui.view">
-            <field name="name">hr attendance form</field>
-            <field name="model">hr.attendance</field>
-            <field name="inherit_id" ref="hr_attendance.view_attendance_form"/>
-            <field name="arch" type="xml">
-
-                     <xpath expr="//group"  position="before">
-                         <field name="image" widget="image" display="thumbnail" class="oe_avatar oe_right" readonly="1"/>
-                        </xpath>
-
-            </field>
-        </record>
-
-          <record id="view_attendance_who_inherit" model="ir.ui.view">
-            <field name="name">hr.attendance.tree</field>
-            <field name="model">hr.attendance</field>
-             <field name="inherit_id" ref="hr_attendance.view_attendance_who"/>
-            <field eval="3" name="priority"/>
-            <field name="arch" type="xml">
-                <tree string="Employee attendances">
-                    <field name="image" widget="image" display="thumbnail" class="oe_avatar oe_right" readonly="1"/>
-                </tree>
-            </field>
-        </record>
-
-
-
 
     </data>
 </openerp>
