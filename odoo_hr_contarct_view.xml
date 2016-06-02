@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+      <!--   hr_attendance.view_attendance_form  -->
+        <record id="view_contract_form_inherit" model="ir.ui.view">
+            <field name="name">Add Net Salary</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+
+                     <xpath expr="//field[@name='wage']" position="after">
+                         <field name="net"/>
+                     </xpath>
+
+            </field>
+        </record>
+    </data>
+</openerp>
