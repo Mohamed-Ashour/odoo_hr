@@ -1,7 +1,7 @@
 {
     'name':'ITI HR',
     'version': '1.0',
-    'depends':['hr','hr_attendance', 'hr_contract'],
+    'depends':['hr','hr_attendance', 'hr_contract','resource'],
     'description': """
 ITI HR
 ==========================

@@ -62,6 +62,7 @@ class MyOdooexperiance(models.Model):
     total_years=fields.Integer()
     ecertificate=fields.Binary()
     employee_id=fields.Many2one("hr.employee")
+    country= fields.Selection(selection=[('E','Egypt')])
     #country_i=fields.Char(related="employee_id.country_id")
 
 
