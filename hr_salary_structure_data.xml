@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="TAX" model="hr.salary.rule.category">
+            <field name="name">Taxes</field>
+            <field name="code">TAX</field>
+        </record>
+
+        <record id="YP" model="hr.salary.rule.category">
+            <field name="name">Year Payment</field>
+            <field name="code">YP</field>
+        </record>
+
+        <!-- Salary Rules -->
+
+        <record id="hr_salary_rule_normal_social_insurance" model="hr.salary.rule">
+            <field name="amount_select">percentage</field>
+            <field eval="-14.0" name="amount_percentage"/>
+            <field name="amount_percentage_base">contract.wage</field>
+            <field name="code">nsi</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="name">Normal social insurance</field>
+            <field name="sequence" eval="2"/>
+            <field name="condition_select">range</field>
+            <field name="condition_range_min" eval="0"/>
+            <field name="condition_range_max" eval="1012"/>
+        </record>
+
+        <record id="hr_salary_rule_max_social_insurance" model="hr.salary.rule">
+            <field name="amount_select">percentage</field>
+            <field eval="-14.0" name="amount_percentage"/>
+            <field name="amount_percentage_base" eval="1012"/>
+            <field name="code">msi</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="name">Max social insurance</field>
+            <field name="sequence" eval="2"/>
+            <field name="condition_select">range</field>
+            <field name="condition_range_min" eval="1013"/>
+            <field name="condition_range_max" eval="999999999"/>
+        </record>
+
+
+        <record id="hr_salary_rule_variable" model="hr.salary.rule">
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.vaiable</field>
+            <field name="code">var</field>
+            <field name="category_id" ref="odoo_hr.ALW"/>
+            <field name="name">Variables</field>
+            <field name="sequence" eval="3"/>
+        </record>
+
+        <record id="hr_salary_rule_yearly_payment" model="hr.salary.rule">
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.wage * 12</field>
+            <field name="code">YP</field>
+            <field name="category_id" ref="odoo_hr.YP"/>
+            <field name="name">YearlyPayment</field>
+            <field name="sequence" eval="6"/>
+        </record>
+
+
+
+
+    </data>
+</openerp>
