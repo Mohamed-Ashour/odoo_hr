@@ -2,4 +2,4 @@ from openerp import models,fields,api
 
 class odooContractInhired(models.Model):
     _inherit ="hr.contract"
-    net=fields.Char(string='Net', required=True)
+    net=fields.Float(string='Net', required=True)
