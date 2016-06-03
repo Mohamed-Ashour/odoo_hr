@@ -1,6 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+      <!--   hr_attendance.view_attendance_form  -->
+        <record id="view_attendance_form_inherit" model="ir.ui.view">
+            <field name="name">hr attendance form</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.view_attendance_form"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//group"  position="before">
+                    <field name="image" widget="image" display="thumbnail" class="oe_avatar oe_right" readonly="1"/>
+                </xpath>
+
+            </field>
+        </record>
+
+          <record id="view_attendance_who_inherit" model="ir.ui.view">
+            <field name="name">hr.attendance.tree</field>
+            <field name="model">hr.attendance</field>
+             <field name="inherit_id" ref="hr_attendance.view_attendance_who"/>
+            <field eval="3" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Employee attendances">
+                    <field name="image" widget="image" display="thumbnail" class="oe_avatar oe_right" readonly="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--hr.view_employee_form-->
+         <record id="view_employee_form_inherit" model="ir.ui.view">
+            <field name="name">hr.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook"  position="inside">
+                    <page string="Education" >
+                        <group string="Degree">
+                            <field name="degree_level" string="Degree Level"/>
+                            <field name="country_id" options='{"no_open": True, "no_create": True}' string="Location"/>
+                            <field name="university_name" string="University" />
+                            <field name="fields_study" string="Fields Study"/>
+                            <field name="grade" string="Grade"/>
+                        </group>
+                            <group string="Date Attended">
+                                <field name="degree_from" string="From"/>
+                                <field name="degree_to" string="To"/>
+                            </group>
+
+                                <field name="note" string="Note" placeholder="Note"/>
+                    </page>
+                     <page  string="Experiences" >
+
+                        <field name="experience_ids">
+                            <tree>
+                                <field name="job_title"/>
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+                            </tree>
+                        </field>
+
+                     </page>
+                    <page  string="Your Attachments" >
+                        <group >
+                            <field name="graduation_certificate" string="Graduation Certificate"/>
+                            <field name="data" string="CV" />
+
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        <!--  insert expriance -->
+         <record id="track_tree_view" model="ir.ui.view">
+            <field name="name">exprience_tree_view</field>
+            <field name="model">odoo_hr.exprience</field>
+            <field name="arch" type="xml">
+                <form string="Exprience">
+                    <sheet>
+                        <group string="Exprience">
+                             <group string="Basic Information">
+                            <field name="job_title" />
+                            <field name="country" string="Location"/>
+                            <field name="city"/>
+                            <field name="website"/>
+                            <field name="ecertificate" string="Experience certificate"/>
+
+                        </group>
+                         <group string="Time Period">
+                             <field name="date_from"/>
+                             <field name="date_to"/>
+                             <field name="total_years" string="Years of experience "/>
+
+                         </group>
+
+
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
 
     </data>
 </openerp>
+
