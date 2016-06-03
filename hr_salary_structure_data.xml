@@ -45,7 +45,7 @@
             <field name="amount_select">code</field>
             <field name="amount_python_compute">result = contract.vaiable</field>
             <field name="code">var</field>
-            <field name="category_id" ref="odoo_hr.ALW"/>
+            <field name="category_id" ref="hr_payroll.ALW"/>
             <field name="name">Variables</field>
             <field name="sequence" eval="3"/>
         </record>
