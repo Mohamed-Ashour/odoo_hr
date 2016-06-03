@@ -47,15 +47,43 @@
                             </group>
 
                                 <field name="note" string="Note" placeholder="Note"/>
-
-
                     </page>
                      <page  string="Experiences" >
-                        <group string="Basic Information">
+
+                        <field name="experience_ids">
+                            <tree>
+                                <field name="job_title"/>
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+                            </tree>
+                        </field>
+
+                     </page>
+                    <page  string="Your Attachments" >
+                        <group >
+                            <field name="graduation_certificate" string="Graduation Certificate"/>
+                            <field name="data" string="CV" />
+
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        <!--  insert expriance -->
+         <record id="track_tree_view" model="ir.ui.view">
+            <field name="name">exprience_tree_view</field>
+            <field name="model">odoo_hr.exprience</field>
+            <field name="arch" type="xml">
+                <form string="Exprience">
+                    <sheet>
+                        <group string="Exprience">
+                             <group string="Basic Information">
                             <field name="job_title" />
-                            <field name="country_id" options='{"no_open": True, "no_create": True}' string="Location"/>
+                            <!--<field name="country_i" options='{"no_open": True, "no_create": True}' string="Location"/>-->
                             <field name="city"/>
                             <field name="website"/>
+                            <field name="ecertificate" string="Experience certificate"/>
+                            
                         </group>
                          <group string="Time Period">
                              <field name="date_from"/>
@@ -64,19 +92,12 @@
 
                          </group>
 
-                     </page>
-                    <page  string="Your Attachments" >
-                        <group >
-                            <field name="graduation_certificate" string="Graduation Certificate"/>
-                            <field name="Ecertificate" string="Experience certificate"/>
-                            <field name="data" string="CV" />
+
                         </group>
-                    </page>
-                </xpath>
+                    </sheet>
+                </form>
             </field>
         </record>
-
-
 
 
     </data>
