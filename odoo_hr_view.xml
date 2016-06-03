@@ -32,7 +32,6 @@
             <field name="model">hr.employee</field>
             <field name="inherit_id" ref="hr.view_employee_form"/>
             <field name="arch" type="xml">
-                <!--page string="HR Settings" string="Personal Information" groups="base.group_hr_user" -->
                 <xpath expr="//notebook"  position="inside">
                     <page string="Education" >
                         <group string="Degree">
