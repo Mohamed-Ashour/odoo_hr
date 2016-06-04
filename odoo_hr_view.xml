@@ -51,10 +51,12 @@
                      <page  string="Experiences" >
 
                         <field name="experience_ids">
+
                             <tree>
                                 <field name="job_title"/>
                                 <field name="date_from"/>
                                 <field name="date_to"/>
+                                <field name="total_years" string="Experience Years" sum="Experience Years"/>
                             </tree>
                         </field>
 
@@ -63,7 +65,6 @@
                         <group >
                             <field name="graduation_certificate" string="Graduation Certificate"/>
                             <field name="data" string="CV" />
-
                         </group>
                     </page>
                 </xpath>
