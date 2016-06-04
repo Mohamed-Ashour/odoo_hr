@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-    <data noupdate="1">
+    <data>
 
         <record id="TAX" model="hr.salary.rule.category">
             <field name="name">Taxes</field>
@@ -61,6 +61,68 @@
 
 
 
+        <record id="hr_salary_rule_grade_1" model="hr.salary.rule">
+            <field name="name">Professional tax grade 1</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">tax=(texable_yearly_payment-7000)*0.1
+result=-(tax/12)</field>
+            <field name="code">PTG1</field>
+            <field name="category_id" ref="odoo_hr.TAX"/>
+            <field name="sequence" eval="100"/>
+            <field name="condition_select">range</field>
+            <field name="condition_range_min" eval="7001"/>
+            <field name="condition_range_max" eval="20000"/>
+        </record>
+
+
+
+        <record id="hr_salary_rule_grade_2" model="hr.salary.rule">
+            <field name="name">Professional tax grade 2</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">first_class=13000*0.1
+tax=((taxable_yearly_payment-20000)*0.15)+first_class
+result=-(tax/12)</field>
+            <field name="code">PTG2</field>
+            <field name="category_id" ref="odoo_hr.TAX"/>
+            <field name="sequence" eval="110"/>
+            <field name="condition_select">range</field>
+            <field name="condition_range_min" eval="20001"/>
+            <field name="condition_range_max" eval="40000"/>
+        </record>
+
+
+        <record id="hr_salary_rule_grade_3" model="hr.salary.rule">
+            <field name="name">Professional tax grade 3</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">first_class=13000*0.1
+second_class=20000*0.15
+tax=((taxable_yearly_payment-40000)*0.2)+first_class+second_class
+result=-(tax/12)</field>
+            <field name="code">PTG3</field>
+            <field name="category_id" ref="odoo_hr.TAX"/>
+            <field name="sequence" eval="120"/>
+            <field name="condition_select">range</field>
+            <field name="condition_range_min" eval="40001"/>
+            <field name="condition_range_max" eval="250000"/>
+        </record>
+
+
+
+        <record id="hr_salary_rule_grade_4" model="hr.salary.rule">
+            <field name="name">Professional tax grade 4</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">first_class=13000*0.1
+second_class=20000*0.15
+third_class=210000*0.2
+tax=((taxable_yearly_payment-250000)*0.25)+first_class+second_class+third_class
+result=-(tax/12)</field>
+            <field name="code">PTG4</field>
+            <field name="category_id" ref="odoo_hr.TAX"/>
+            <field name="sequence" eval="130"/>
+            <field name="condition_select">range</field>
+            <field name="condition_range_min" eval="250001"/>
+            <field name="condition_range_max" eval="99999999999"/>
+        </record>
 
     </data>
 </openerp>
