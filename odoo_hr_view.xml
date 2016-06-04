@@ -79,7 +79,7 @@
                     <sheet>
                         <group string="Exprience">
                              <group string="Basic Information">
-                            <field name="job_title" />
+                            <field name="job_title" required="1" />
                             <field name="country" string="Location"/>
                             <field name="city"/>
                             <field name="website"/>
@@ -87,8 +87,8 @@
 
                         </group>
                          <group string="Time Period">
-                             <field name="date_from"/>
-                             <field name="date_to"/>
+                             <field name="date_from" required="1" />
+                             <field name="date_to" required="1" />
                              <field name="total_years" string="Years of experience "/>
 
                          </group>
