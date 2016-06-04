@@ -9,7 +9,7 @@
             <field name="arch" type="xml">
 
                      <xpath expr="//field[@name='wage']" position="after">
-                         <field name="net"/>
+                         <field name="variable"/>
                      </xpath>
 
             </field>
