@@ -63,6 +63,8 @@
                      </page>
                     <page  string="Your Attachments" >
                         <group >
+                            <field name="Personal_card_front"/>
+                            <field name="Personal_card_back"/>
                             <field name="graduation_certificate" string="Graduation Certificate"/>
                             <field name="data" string="CV" />
                         </group>

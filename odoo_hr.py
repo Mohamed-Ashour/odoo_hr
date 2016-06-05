@@ -36,6 +36,8 @@ class odooHrEmployeeInherit(models.Model):
     #____________ attachment _____________
     data= fields.Binary('File')
     graduation_certificate=fields.Binary()
+    Personal_card_front=fields.Binary()
+    Personal_card_back=fields.Binary()
     #_______________  experience ____________
     experience_ids=fields.One2many("odoo_hr.exprience","employee_id",string="Experience")
 
