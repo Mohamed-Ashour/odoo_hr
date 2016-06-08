@@ -3,9 +3,13 @@ import datetime
 from time import strptime
 from datetime import datetime
 
-from openerp import models,fields,api
+import exceptions
 
-from dateutil import relativedelta
+from openerp import models,fields,api,exceptions
+import math
+from openerp import tools
+
+
 
 class odooHrInhired(models.Model):
 
@@ -36,13 +40,17 @@ class odooHrEmployeeInherit(models.Model):
     #____________ attachment _____________
     data= fields.Binary('File')
     graduation_certificate=fields.Binary()
-    Personal_card_front=fields.Binary()
-    Personal_card_back=fields.Binary()
     #_______________  experience ____________
     experience_ids=fields.One2many("odoo_hr.exprience","employee_id",string="Experience")
 
     #_______________ Eduvation _________________
     degree_level=fields.Selection(selection=[('V','Vocational'),('TD','Technical Diploma'),('CD','Collage Diploma'),('BD','Bachelors Degree'),('MD','Master Degree'),('MBA','MBA'),('DD','Doctorate Degree')])
+    @api.depends('degree_from','degree_to')
+    def onchange_date_from_to(self,cr, uid, ids, degree_to, degree_from):
+        # date_to has to be greater than date_from
+        if (degree_from and degree_to) and (degree_from > degree_to):
+            raise exceptions.ValidationError("The start date must be anterior to the end date. ")
+
     degree_from= fields.Date(string='From')
     degree_to= fields.Date(string='To')
     #-------------- test ---------------------
@@ -76,12 +84,66 @@ class MyOdooexperiance(models.Model):
             print "years : %d" % ((c_date - b_date).days/365)
 
 
+    @api.depends('date_from','date_to')
+    def onchange_date_from(self,cr, uid, ids, date_to, date_from):
+        # date_to has to be greater than date_from
+        if (date_from and date_to) and (date_from > date_to):
+            raise exceptions.ValidationError("The start date must be anterior to the end date. ")
+
+        result = {'value': {}}
+
+        # No date_to set so far: automatically compute one 8 hours later
+        if date_from and not date_to:
+            date_to_with_delta = datetime.strptime(str(date_from),"%Y-%m-%d")
+            result['value']['date_to'] = str(date_to_with_delta)
+
+        # Compute and update the number of days
+        if (date_to and date_from) and (date_from <= date_to):
+            diff_day = self._get_number_of_days(date_from, date_to)
+            result['value']['total_years_create'] = round(math.floor(diff_day))
+        else:
+            result['value']['total_years_create'] = 0
+
+        return result
+
+    @api.depends('date_from','date_to')
+    def onchange_date_to(self, cr, uid, ids, date_to, date_from):
+        """
+        Update the number_of_days.
+        """
+        # date_to has to be greater than date_from
+        if (date_from and date_to) and (date_from > date_to):
+            raise exceptions.ValidationError(" The start date must be anterior to the end date. ")
+
+        result = {'value': {}}
+
+        # Compute and update the number of days
+        if (date_to and date_from) and (date_from <= date_to):
+            diff_day = self._get_number_of_days(date_from, date_to)
+            result['value']['total_years_create'] = round(math.floor(diff_day))
+        else:
+            result['value']['total_years_create'] = 0
+        return result
+
+    @api.depends('date_from','date_to')
+    def _get_number_of_days(self, date_from, date_to):
+
+        DATETIME_FORMAT = "%Y-%m-%d"
+        from_dt = datetime.strptime(str(date_from), DATETIME_FORMAT)
+        to_dt = datetime.strptime(str(date_to), DATETIME_FORMAT)
+        timedelta = to_dt - from_dt
+        print timedelta
+        diff_day = (timedelta.days)/365
+        return diff_day
+
+    #_______________ field in database ____________________
+
     job_title=fields.Char(string="Job Title")
     city=fields.Char(string="City")
     website=fields.Char(string="Website")
     date_from= fields.Date()
     date_to= fields.Date()
-    total_years_create=fields.Integer()
+    total_years_create=fields.Integer(store=True)
     total_years=fields.Integer(compute=_comp_years,store=True)
     ecertificate=fields.Binary()
     employee_id=fields.Many2one("hr.employee")
