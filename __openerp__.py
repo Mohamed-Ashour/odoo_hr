@@ -10,6 +10,7 @@ Adding Egyptian rules to HR module
     'data': [
         'odoo_hr_view.xml',
         'odoo_hr_contarct_view.xml',
-        'hr_salary_structure_data.xml'
+        'hr_salary_structure_data.xml',
+        'odoo_hr_devorce.xml'
     ],
 }

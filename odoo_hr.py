@@ -1,7 +1,7 @@
 import datetime
 
 from time import strptime
-from datetime import datetime
+#from datetime import datetime
 
 from openerp import models,fields,api
 
@@ -86,3 +86,50 @@ class MyOdooexperiance(models.Model):
     ecertificate=fields.Binary()
     employee_id=fields.Many2one("hr.employee")
     country= fields.Selection(selection=[('E','Egypt')])
+    ########################to copy imployee data in another #####
+class OdooDisplayId(models.Model):
+        _name = "odoo_hr.display"
+
+        #@api.model
+        # def create(self,values):
+        #     print "done enter "
+        #     result=self.env["hr.employee"].search([])
+        #     print result[1]['id']
+        #     for x in result:
+        #         values["display_data"]=x['id']
+        #         print values["display_data"]
+        #         super(OdooDisplayId,self).create(values)
+        #     pass
+
+        def _dis_data(self):
+            Employee_ids=self.env['hr.employee'].search([])
+            print Employee_ids[1]['id']
+           # print "ffff"
+            #print Date.today()+8
+            #for x in Employee_ids:
+             #  x['display_data']=x['id']
+            #pass
+            format = "%a %b %d %H:%M:%S %Y"
+
+            today = datetime.datetime.today()
+            print 'ISO     :', today
+
+            s = today.strptime(format)
+            print 'strftime:', s
+            m= s.days
+            print s
+
+            d = datetime.datetime.strptime(s, format)
+            print 'strptime:', d.strptime(format)
+
+
+           #Employee_ids=[1,2,3,4,5]
+           # Employee_ids=self.env['hr.employee'].search([])
+           #  print "enteeeeeeeeeeeeer"
+           #  for x in [1,2,3,4]:
+           #      for rec in self:
+           #      #self.create({'display_data': x.id})
+           #       print x
+           #       rec.display_data=x
+
+        display_data=fields.Integer(compute= _dis_data)
