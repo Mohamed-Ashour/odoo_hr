@@ -11,28 +11,6 @@ from openerp import tools
 
 
 
-
-
-<<<<<<< HEAD
-=======
-    #@api.onchange('employee_id','image')
-    @api.model
-    def create(self, values):
-        contacts1 = self.env['hr.employee'].search([('id','=',values['employee_id'])])
-        values['image']=contacts1.image
-        return super(odooHrInhired,self).create(values)
-
-    @api.multi
-    def write(self, values):
-        contacts1 = self.env['hr.employee'].search([('id','=',values['employee_id'])])
-        values['image']=contacts1.image
-        return super(odooHrInhired,self).write(values)
-
-
-#______________________________________________________________________________
-
->>>>>>> 4951972091d9fbed74cf4ba1fded60b3f273d50c
-
 class odooHrEmployeeInherit(models.Model):
 
     _inherit ="hr.employee"

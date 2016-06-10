@@ -3,23 +3,21 @@ from openerp import models, fields, api
 class odooAttendenceInherit(models.Model):
     _inherit ="hr.attendance"
 
-    @api.multi
-    @api.model
+    @api.depends('action', 'time', 'start_time')
     def _late_compute(self):
         for record in self:
             if record.action == 'sign_in':
                 record.late = record.time - record.start_time
         return True
 
-    @api.multi
+    @api.depends('action', 'time', 'end_time')
     def _overtime_compute(self):
         for record in self:
-            end_of_time = 2 + record.end_time
             if record.action == 'sign_out':
-                record.overtime = record.time - end_of_time
-            if record.overtime <0:
+                record.overtime = record.time - record.end_time - 2
+            if record.overtime < 0:
                 record.overtime = 0
-            return True
+        return True
 
     @api.model
     def create(self, values):
@@ -43,7 +41,7 @@ class odooAttendenceInherit(models.Model):
     image=fields.Binary()
     time=fields.Float(string="time", required=True)
     late=fields.Float(compute=_late_compute, store=True)
-    overtime=fields.Float(compute=_overtime_compute)
+    overtime=fields.Float(compute=_overtime_compute, store=True)
     start_time=fields.Float(string="start_time")
     end_time=fields.Float(string="end_time")
 

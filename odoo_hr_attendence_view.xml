@@ -14,7 +14,7 @@
                          <field name="time" widget="float_time"/>
                 </xpath>
                 <xpath expr="//field[@name='action']" position="after">
-                         <field name="late" store="true"/>
+                         <field name="late"/>
                 </xpath>
                 <xpath expr="//field[@name='late']" position="after">
                          <field name="overtime"/>
