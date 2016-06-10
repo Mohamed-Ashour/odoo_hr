@@ -164,9 +164,6 @@ result=-(tax/12)</field>
             <field name="condition_range_min" eval="40001"/>
             <field name="condition_range_max" eval="250000"/>
         </record>
-
-
-
         <record id="hr_salary_rule_grade_4" model="hr.salary.rule">
             <field name="name">Professional tax grade 4</field>
             <field name="amount_select">code</field>
