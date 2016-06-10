@@ -3,9 +3,13 @@ import datetime
 from time import strptime
 #from datetime import datetime
 
-from openerp import models,fields,api
+import exceptions
 
-from dateutil import relativedelta
+from openerp import models,fields,api,exceptions
+import math
+from openerp import tools
+
+
 
 class odooHrInhired(models.Model):
 
@@ -36,13 +40,17 @@ class odooHrEmployeeInherit(models.Model):
     #____________ attachment _____________
     data= fields.Binary('File')
     graduation_certificate=fields.Binary()
-    Personal_card_front=fields.Binary()
-    Personal_card_back=fields.Binary()
     #_______________  experience ____________
     experience_ids=fields.One2many("odoo_hr.exprience","employee_id",string="Experience")
 
     #_______________ Eduvation _________________
     degree_level=fields.Selection(selection=[('V','Vocational'),('TD','Technical Diploma'),('CD','Collage Diploma'),('BD','Bachelors Degree'),('MD','Master Degree'),('MBA','MBA'),('DD','Doctorate Degree')])
+    @api.depends('degree_from','degree_to')
+    def onchange_date_from_to(self,cr, uid, ids, degree_to, degree_from):
+        # date_to has to be greater than date_from
+        if (degree_from and degree_to) and (degree_from > degree_to):
+            raise exceptions.ValidationError("The start date must be anterior to the end date. ")
+
     degree_from= fields.Date(string='From')
     degree_to= fields.Date(string='To')
     #-------------- test ---------------------
@@ -76,60 +84,154 @@ class MyOdooexperiance(models.Model):
             print "years : %d" % ((c_date - b_date).days/365)
 
 
+    @api.depends('date_from','date_to')
+    def onchange_date_from(self,cr, uid, ids, date_to, date_from):
+        # date_to has to be greater than date_from
+        if (date_from and date_to) and (date_from > date_to):
+            raise exceptions.ValidationError("The start date must be anterior to the end date. ")
+
+        result = {'value': {}}
+
+        # No date_to set so far: automatically compute one 8 hours later
+        if date_from and not date_to:
+            date_to_with_delta = datetime.strptime(str(date_from),"%Y-%m-%d")
+            result['value']['date_to'] = str(date_to_with_delta)
+
+        # Compute and update the number of days
+        if (date_to and date_from) and (date_from <= date_to):
+            diff_day = self._get_number_of_days(date_from, date_to)
+            result['value']['total_years_create'] = round(math.floor(diff_day))
+        else:
+            result['value']['total_years_create'] = 0
+
+        return result
+
+    @api.depends('date_from','date_to')
+    def onchange_date_to(self, cr, uid, ids, date_to, date_from):
+        """
+        Update the number_of_days.
+        """
+        # date_to has to be greater than date_from
+        if (date_from and date_to) and (date_from > date_to):
+            raise exceptions.ValidationError(" The start date must be anterior to the end date. ")
+
+        result = {'value': {}}
+
+        # Compute and update the number of days
+        if (date_to and date_from) and (date_from <= date_to):
+            diff_day = self._get_number_of_days(date_from, date_to)
+            result['value']['total_years_create'] = round(math.floor(diff_day))
+        else:
+            result['value']['total_years_create'] = 0
+        return result
+
+    @api.depends('date_from','date_to')
+    def _get_number_of_days(self, date_from, date_to):
+
+        DATETIME_FORMAT = "%Y-%m-%d"
+        from_dt = datetime.strptime(str(date_from), DATETIME_FORMAT)
+        to_dt = datetime.strptime(str(date_to), DATETIME_FORMAT)
+        timedelta = to_dt - from_dt
+        print timedelta
+        diff_day = (timedelta.days)/365
+        return diff_day
+
+    #_______________ field in database ____________________
+
     job_title=fields.Char(string="Job Title")
     city=fields.Char(string="City")
     website=fields.Char(string="Website")
     date_from= fields.Date()
     date_to= fields.Date()
-    total_years_create=fields.Integer()
+    total_years_create=fields.Integer(store=True)
     total_years=fields.Integer(compute=_comp_years,store=True)
     ecertificate=fields.Binary()
     employee_id=fields.Many2one("hr.employee")
     country= fields.Selection(selection=[('E','Egypt')])
-    ########################to copy imployee data in another #####
-class OdooDisplayId(models.Model):
-        _name = "odoo_hr.display"
+    ########################Absence  #####
+class odooAbsence(models.Model):
+    _inherit = "hr.payslip"
+    absence= fields.Integer()
+    @api.model
+    def create(self, vals):
+        print vals['date_from']
+        print vals['employee_id']
+        vals['absence']=5
+        ch_date=0
+        ho_date=0
+        print vals['absence']
+        DATETIME_FORMAT = "%Y-%m-%d"
+        #from_dt = datetime.strptime(str(vals['']), DATETIME_FORMAT)
+        #to_dt = datetime.strptime(str(date_to), DATETIME_FORMAT)
+        attendance_data=self.env["hr.attendance"].search([])
+        listdate=[]
+        holid_data=0
 
-        #@api.model
-        # def create(self,values):
-        #     print "done enter "
-        #     result=self.env["hr.employee"].search([])
-        #     print result[1]['id']
-        #     for x in result:
-        #         values["display_data"]=x['id']
-        #         print values["display_data"]
-        #         super(OdooDisplayId,self).create(values)
-        #     pass
-
-        def _dis_data(self):
-            Employee_ids=self.env['hr.employee'].search([])
-            print Employee_ids[1]['id']
-           # print "ffff"
-            #print Date.today()+8
-            #for x in Employee_ids:
-             #  x['display_data']=x['id']
-            #pass
-            format = "%a %b %d %H:%M:%S %Y"
-
-            today = datetime.datetime.today()
-            print 'ISO     :', today
-
-            s = today.strptime(format)
-            print 'strftime:', s
-            m= s.days
-            print s
-
-            d = datetime.datetime.strptime(s, format)
-            print 'strptime:', d.strptime(format)
+        count=0
+        for rec in attendance_data:
+            count=0
+            att_date=rec.check_date
+            if len(listdate) != 0:
+                for x in listdate:
+                    if x == att_date :
+                        count+=1
+                print count
+                if count == 0:
+                    listdate.append(att_date)
+            else:
+                listdate.append(att_date)
 
 
-           #Employee_ids=[1,2,3,4,5]
-           # Employee_ids=self.env['hr.employee'].search([])
-           #  print "enteeeeeeeeeeeeer"
-           #  for x in [1,2,3,4]:
-           #      for rec in self:
-           #      #self.create({'display_data': x.id})
-           #       print x
-           #       rec.display_data=x
+        print listdate
+        if listdate[0] >= vals['date_from']:
+            print "Trueee"
+        for lo in listdate:
+            ch_date+=self.env["hr.attendance"].search_count([('employee_id','=',vals['employee_id']),('check_date','=',lo),('num_log','=',1)])
+        print ch_date
 
-        display_data=fields.Integer(compute= _dis_data)
+        holiday_date=self.env["hr.holidays"].search([('employee_id','=',vals['employee_id'])])
+        for rec in holiday_date:
+            if rec.date_from >= vals['date_from'] and rec.date_from <= vals['date_to']:
+                holid_data+=rec.number_of_days_temp
+            print holid_data
+
+        for holid in holiday_date:
+            ho_date+=holid.number_of_days_temp
+        print ho_date+ch_date
+        final_cal= 20-(holid_data+ch_date)
+        if final_cal <0 :
+            vals['absence']= -1 * final_cal
+        else:
+            vals['absence']=final_cal
+
+
+
+
+
+
+        #vv=self.env["hr.attendance"].search_count([('employee_id','=',vals['employee_id']),(listdate[0],'&gt;=',vals['date_from']),(listdate[0],'$lt;=',vals['date_to']),('action','=','sign_in'),'number_log','=',1])
+        #print vv
+
+
+        #print s
+       #  timedelta = to_dt - from_dt
+       # count_absence=self.env["hr.attendance"].search_count([('employee_id','=',vals['employee_id']),('write_date','&lt;=',vals['date_from']),('write_date','$gt;=',vals['date_to']),('action','=','sign in')])
+        #print count_absence
+        return super(odooAbsence,self).create(vals)
+##########Add Date to attendence###############
+class odooAddDateAttendence(models.Model):
+    _inherit ="hr.attendance"
+    check_date=fields.Date()
+    num_log=fields.Integer()
+    @api.model
+    def create(self,vals):
+        number_log=self.search_count([('employee_id','=',vals['employee_id']),('action','=','sign_in')])
+        if number_log == 0 and vals['action'] == 'sign_in':
+            vals['num_log']=1
+        else:
+            vals['num_log']=-1
+        print vals['action']
+        print number_log
+
+        vals['check_date']= datetime.datetime.now()
+        return super(odooAddDateAttendence,self).create(vals)
