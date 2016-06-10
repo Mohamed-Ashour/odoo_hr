@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="Display_tree_view" model="ir.ui.view">
+            <field name="name">student tree view</field>
+            <field name="model">hr.holidays</field>
+            <field name="arch" type="xml">
+               <tree>
+
+
+
+                </tree>
+
+            </field>
+
+
+        </record>
+      <!--   hr_attendance.view_attendance_form  -->
+         <record model="ir.actions.act_window" id="action_display_id">
+            <field name="name">Leaves Request</field>
+            <field name="res_model">hr.holidays</field>
+            <field name="view_type">form</field>
+             <field name="domain">[('number_of_days','&lt;=',-15),('state','!=','validate')]</field>
+
+
+
+
+        </record>
+
+        <record model="ir.actions.act_window" id="action_display_id_query">
+            <field name="name">Dates</field>
+            <field name="res_model">hr.payslip</field>
+            <field name="view_type">form</field>
+
+
+        </record>
+
+        <menuitem name="Devorec Employees" parent="hr_holidays.menu_hr_holidays_root" id="menu_open_per_appri_req"
+         action="action_display_id"/>
+        <menuitem name="Date " parent="hr_holidays.menu_hr_holidays_root" id="menu_open_per"
+         action="action_display_id_query"/>
+    </data>
+</openerp>

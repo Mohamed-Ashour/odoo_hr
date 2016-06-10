@@ -17,7 +17,7 @@
                          <field name="late" store="true"/>
                 </xpath>
                 <xpath expr="//field[@name='late']" position="after">
-                         <field name="overtime" store="true"/>
+                         <field name="overtime"/>
                 </xpath>
 
             </field>

@@ -4,6 +4,7 @@ class odooAttendenceInherit(models.Model):
     _inherit ="hr.attendance"
 
     @api.multi
+    @api.model
     def _late_compute(self):
         for record in self:
             if record.action == 'sign_in':
@@ -41,7 +42,7 @@ class odooAttendenceInherit(models.Model):
 
     image=fields.Binary()
     time=fields.Float(string="time", required=True)
-    late=fields.Float(compute=_late_compute)
+    late=fields.Float(compute=_late_compute, store=True)
     overtime=fields.Float(compute=_overtime_compute)
     start_time=fields.Float(string="start_time")
     end_time=fields.Float(string="end_time")

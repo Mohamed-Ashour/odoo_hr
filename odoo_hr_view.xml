@@ -19,8 +19,8 @@
                             <field name="grade" string="Grade"/>
                         </group>
                             <group string="Date Attended">
-                                <field name="degree_from" string="From"/>
-                                <field name="degree_to" string="To"/>
+                                <field name="degree_from" string="From" on_change="onchange_date_from_to(degree_to, degree_from)"/>
+                                <field name="degree_to" string="To" on_change="onchange_date_from_to(degree_to, degree_from)"/>
                             </group>
 
                                 <field name="note" string="Note" placeholder="Note"/>
@@ -28,10 +28,12 @@
                      <page  string="Experiences" >
 
                         <field name="experience_ids">
+
                             <tree>
                                 <field name="job_title"/>
-                                <field name="date_from"/>
+                                <field name="date_from" />
                                 <field name="date_to"/>
+                                <field name="total_years_create" string="Experience Years" sum="Experience Years"/>
                             </tree>
                         </field>
 
@@ -40,7 +42,6 @@
                         <group >
                             <field name="graduation_certificate" string="Graduation Certificate"/>
                             <field name="data" string="CV" />
-
                         </group>
                     </page>
                 </xpath>
@@ -55,7 +56,7 @@
                     <sheet>
                         <group string="Exprience">
                              <group string="Basic Information">
-                            <field name="job_title" />
+                            <field name="job_title" required="1"/>
                             <field name="country" string="Location"/>
                             <field name="city"/>
                             <field name="website"/>
@@ -63,9 +64,12 @@
 
                         </group>
                          <group string="Time Period">
-                             <field name="date_from"/>
-                             <field name="date_to"/>
-                             <field name="total_years" string="Years of experience "/>
+                             <!--<field name="date_from"/>-->
+                             <!--<field name="date_to"/>-->
+                                    <field name="date_from" on_change="onchange_date_from(date_to, date_from)"  required="1"/>
+                                   <field name="date_to" on_change="onchange_date_to(date_to, date_from)" required="1"  />
+                                     <field name="total_years_create" readonly="1"/> days
+                             <!--<field name="total_years_create" string="Years of experience "/>-->
 
                          </group>
 
@@ -75,7 +79,6 @@
                 </form>
             </field>
         </record>
-
 
     </data>
 </openerp>

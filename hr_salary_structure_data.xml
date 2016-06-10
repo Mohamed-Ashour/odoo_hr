@@ -2,106 +2,165 @@
 <openerp>
     <data>
 
-        <record id="TAX" model="hr.salary.rule.category">
+        <record id="hr_salary_rule_category_tax" model="hr.salary.rule.category">
             <field name="name">Taxes</field>
             <field name="code">TAX</field>
         </record>
 
-        <record id="YP" model="hr.salary.rule.category">
+        <record id="hr_salary_rule_category_yearpayment" model="hr.salary.rule.category">
             <field name="name">Year Payment</field>
             <field name="code">YP</field>
         </record>
 
         <!-- Salary Rules -->
 
-        <record id="hr_salary_rule_normal_social_insurance" model="hr.salary.rule">
+        <record id="hr_salary_rule_variable" model="hr.salary.rule">
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.variable</field>
+            <field name="code">var</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="name">Variables</field>
+            <field name="sequence" eval="20"/>
+        </record>
+
+
+        <record id="hr_rule_gross" model="hr.salary.rule">
+            <field name="name">Gross</field>
+            <field name="sequence" eval="30"/>
+            <field name="code">gr</field>
+            <field name="category_id" ref="hr_payroll.GROSS"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = categories.BASIC + categories.ALW</field>
+        </record>
+
+
+        <record id="hr_salary_rule_normal_si_basic" model="hr.salary.rule">
             <field name="amount_select">percentage</field>
             <field eval="-14.0" name="amount_percentage"/>
             <field name="amount_percentage_base">contract.wage</field>
-            <field name="code">nsi</field>
+            <field name="code">nsib</field>
             <field name="category_id" ref="hr_payroll.DED"/>
-            <field name="name">Normal social insurance</field>
-            <field name="sequence" eval="2"/>
+            <field name="name">Basic social insurance</field>
+            <field name="sequence" eval="40"/>
             <field name="condition_select">range</field>
+            <field name="condition_range">contract.wage</field>
             <field name="condition_range_min" eval="0"/>
             <field name="condition_range_max" eval="1012"/>
         </record>
 
-        <record id="hr_salary_rule_max_social_insurance" model="hr.salary.rule">
+        <record id="hr_salary_rule_max_si_basic" model="hr.salary.rule">
             <field name="amount_select">percentage</field>
             <field eval="-14.0" name="amount_percentage"/>
             <field name="amount_percentage_base" eval="1012"/>
-            <field name="code">msi</field>
+            <field name="code">msib</field>
             <field name="category_id" ref="hr_payroll.DED"/>
-            <field name="name">Max social insurance</field>
-            <field name="sequence" eval="2"/>
+            <field name="name">Basic social insurance (M)</field>
+            <field name="sequence" eval="40"/>
             <field name="condition_select">range</field>
+            <field name="condition_range">contract.wage</field>
             <field name="condition_range_min" eval="1013"/>
             <field name="condition_range_max" eval="999999999"/>
         </record>
 
+        <record id="hr_salary_rule_normal_si_var" model="hr.salary.rule">
+            <field name="amount_select">percentage</field>
+            <field eval="-11.0" name="amount_percentage"/>
+            <field name="amount_percentage_base">contract.variable</field>
+            <field name="code">nsiv</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="name">Variable social insurance</field>
+            <field name="sequence" eval="50"/>
+            <field name="condition_select">range</field>
+            <field name="condition_range">contract.variable</field>
+            <field name="condition_range_min" eval="0"/>
+            <field name="condition_range_max" eval="1830"/>
+        </record>
 
-        <record id="hr_salary_rule_variable" model="hr.salary.rule">
+        <record id="hr_salary_rule_max_si_var" model="hr.salary.rule">
+            <field name="amount_select">percentage</field>
+            <field eval="-11.0" name="amount_percentage"/>
+            <field name="amount_percentage_base" eval="1830"/>
+            <field name="code">msiv</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="name">Variable social insurance (M)</field>
+            <field name="sequence" eval="50"/>
+            <field name="condition_select">range</field>
+        <field name="condition_range">contract.variable</field>
+            <field name="condition_range_min" eval="1831"/>
+            <field name="condition_range_max" eval="999999999"/>
+        </record>
+
+        <record id="hr_rule_net_before_tax" model="hr.salary.rule">
+            <field name="name">Net before tax</field>
+            <field name="sequence" eval="60"/>
+            <field name="code">NETBT</field>
+            <field name="category_id" ref="hr_payroll.NET"/>
+            <field name="condition_select">none</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = contract.vaiable</field>
-            <field name="code">var</field>
-            <field name="category_id" ref="hr_payroll.ALW"/>
-            <field name="name">Variables</field>
-            <field name="sequence" eval="3"/>
+            <field name="amount_python_compute">result = categories.BASIC + categories.ALW + categories.DED</field>
         </record>
 
         <record id="hr_salary_rule_yearly_payment" model="hr.salary.rule">
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = contract.wage * 12</field>
+            <field name="amount_python_compute">result = categories.NET * 12</field>
             <field name="code">YP</field>
-            <field name="category_id" ref="odoo_hr.YP"/>
-            <field name="name">YearlyPayment</field>
-            <field name="sequence" eval="6"/>
+            <field name="category_id" ref="odoo_hr.hr_salary_rule_category_yearpayment"/>
+            <field name="name">Yearly payment</field>
+            <field name="sequence" eval="70"/>
         </record>
 
+        <record id="hr_salary_rule_taxable_yearly_payment" model="hr.salary.rule">
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = YP - 6500</field>
+            <field name="code">TYP</field>
+            <field name="category_id" ref="odoo_hr.hr_salary_rule_category_yearpayment"/>
+            <field name="name">Taxable yearly payment</field>
+            <field name="sequence" eval="80"/>
+        </record>
 
 
         <record id="hr_salary_rule_grade_1" model="hr.salary.rule">
             <field name="name">Professional tax grade 1</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">tax=(texable_yearly_payment-7000)*0.1
-result=-(tax/12)</field>
+            <field name="amount_python_compute">tax=(TYP-7000)*0.1
+                 result=-(tax/12)</field>
             <field name="code">PTG1</field>
-            <field name="category_id" ref="odoo_hr.TAX"/>
+            <field name="category_id" ref="odoo_hr.hr_salary_rule_category_tax"/>
             <field name="sequence" eval="100"/>
             <field name="condition_select">range</field>
+            <field name="condition_range">TYP</field>
             <field name="condition_range_min" eval="7001"/>
             <field name="condition_range_max" eval="20000"/>
         </record>
-
-
 
         <record id="hr_salary_rule_grade_2" model="hr.salary.rule">
             <field name="name">Professional tax grade 2</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">first_class=13000*0.1
-tax=((taxable_yearly_payment-20000)*0.15)+first_class
+tax=((TYP-20000)*0.15)+first_class
 result=-(tax/12)</field>
             <field name="code">PTG2</field>
-            <field name="category_id" ref="odoo_hr.TAX"/>
+            <field name="category_id" ref="odoo_hr.hr_salary_rule_category_tax"/>
             <field name="sequence" eval="110"/>
             <field name="condition_select">range</field>
+            <field name="condition_range">TYP</field>
             <field name="condition_range_min" eval="20001"/>
             <field name="condition_range_max" eval="40000"/>
         </record>
-
 
         <record id="hr_salary_rule_grade_3" model="hr.salary.rule">
             <field name="name">Professional tax grade 3</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">first_class=13000*0.1
 second_class=20000*0.15
-tax=((taxable_yearly_payment-40000)*0.2)+first_class+second_class
+tax=((TYP-40000)*0.2)+first_class+second_class
 result=-(tax/12)</field>
             <field name="code">PTG3</field>
-            <field name="category_id" ref="odoo_hr.TAX"/>
+            <field name="category_id" ref="odoo_hr.hr_salary_rule_category_tax"/>
             <field name="sequence" eval="120"/>
             <field name="condition_select">range</field>
+            <field name="condition_range">TYP</field>
             <field name="condition_range_min" eval="40001"/>
             <field name="condition_range_max" eval="250000"/>
         </record>
@@ -114,15 +173,47 @@ result=-(tax/12)</field>
             <field name="amount_python_compute">first_class=13000*0.1
 second_class=20000*0.15
 third_class=210000*0.2
-tax=((taxable_yearly_payment-250000)*0.25)+first_class+second_class+third_class
+tax=((TYP-250000)*0.25)+first_class+second_class+third_class
 result=-(tax/12)</field>
             <field name="code">PTG4</field>
-            <field name="category_id" ref="odoo_hr.TAX"/>
+            <field name="category_id" ref="odoo_hr.hr_salary_rule_category_tax"/>
             <field name="sequence" eval="130"/>
             <field name="condition_select">range</field>
+            <field name="condition_range">TYP</field>
             <field name="condition_range_min" eval="250001"/>
             <field name="condition_range_max" eval="99999999999"/>
         </record>
+
+
+
+        <record id="hr_salary_rule_net_after_tax" model="hr.salary.rule">
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = categories.NET + categories.TAX</field>
+            <field name="code">PS</field>
+            <field name="category_id" ref="odoo_hr.hr_salary_rule_category_yearpayment"/>
+            <field name="name">Payable salary</field>
+            <field name="sequence" eval="140"/>
+        </record>
+       <record id="hr_salary_rule_deduct" model="hr.salary.rule">
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result= contract.wage -((contract.wage/30) * payslip.absence)
+            </field>
+            <field name="code">RD</field>
+            <field name="category_id" ref="odoo_hr.hr_salary_rule_category_yearpayment"/>
+            <field name="name">After Deduction</field>
+            <field name="sequence" eval="160"/>
+       </record>
+
+
+        <record id="hr_salary_structure_egyptian" model="hr.payroll.structure">
+            <field name="code">ES</field>
+            <field name="name">Egyptian salary</field>
+            <field eval="[(6, 0, [ref('hr_payroll.hr_rule_basic'), ref('hr_salary_rule_variable'), ref('hr_rule_gross'), ref('hr_salary_rule_normal_si_basic'), ref('hr_salary_rule_max_si_basic'), ref('hr_salary_rule_normal_si_var'), ref('hr_salary_rule_max_si_var'), ref('hr_rule_net_before_tax'), ref('hr_salary_rule_yearly_payment'), ref('hr_salary_rule_taxable_yearly_payment'), ref('hr_salary_rule_grade_1'), ref('hr_salary_rule_grade_2'), ref('hr_salary_rule_grade_3'), ref('hr_salary_rule_grade_4'), ref('hr_salary_rule_net_after_tax'),ref('hr_salary_rule_deduct') ])]" name="rule_ids"/>
+            <field name="company_id" ref="base.main_company"/>
+        </record>
+
+
+
 
     </data>
 </openerp>
