@@ -1,7 +1,7 @@
 import datetime
 
 from time import strptime
-from datetime import datetime
+#from datetime import datetime
 
 import exceptions
 
@@ -9,28 +9,6 @@ from openerp import models,fields,api,exceptions
 import math
 from openerp import tools
 
-
-
-class odooHrInhired(models.Model):
-
-    _inherit ="hr.attendance"
-    image=fields.Binary()
-
-    #@api.onchange('employee_id','image')
-    @api.model
-    def create(self, values):
-        contacts1 = self.env['hr.employee'].search([('id','=',values['employee_id'])])
-        values['image']=contacts1.image
-        return super(odooHrInhired,self).create(values)
-
-    @api.multi
-    def write(self, values):
-        contacts1 = self.env['hr.employee'].search([('id','=',values['employee_id'])])
-        values['image']=contacts1.image
-        return super(odooHrInhired,self).write(values)
-
-
-#______________________________________________________________________________
 
 
 class odooHrEmployeeInherit(models.Model):
@@ -148,3 +126,90 @@ class MyOdooexperiance(models.Model):
     ecertificate=fields.Binary()
     employee_id=fields.Many2one("hr.employee")
     country= fields.Selection(selection=[('E','Egypt')])
+    ########################Absence  #####
+class odooAbsence(models.Model):
+    _inherit = "hr.payslip"
+    absence= fields.Integer()
+    @api.model
+    def create(self, vals):
+        print vals['date_from']
+        print vals['employee_id']
+        vals['absence']=5
+        ch_date=0
+        ho_date=0
+        print vals['absence']
+        DATETIME_FORMAT = "%Y-%m-%d"
+        #from_dt = datetime.strptime(str(vals['']), DATETIME_FORMAT)
+        #to_dt = datetime.strptime(str(date_to), DATETIME_FORMAT)
+        attendance_data=self.env["hr.attendance"].search([])
+        listdate=[]
+        holid_data=0
+
+        count=0
+        for rec in attendance_data:
+            count=0
+            att_date=rec.check_date
+            if len(listdate) != 0:
+                for x in listdate:
+                    if x == att_date :
+                        count+=1
+                print count
+                if count == 0:
+                    listdate.append(att_date)
+            else:
+                listdate.append(att_date)
+
+
+        print listdate
+        if listdate[0] >= vals['date_from']:
+            print "Trueee"
+        for lo in listdate:
+            ch_date+=self.env["hr.attendance"].search_count([('employee_id','=',vals['employee_id']),('check_date','=',lo),('num_log','=',1)])
+        print ch_date
+
+        holiday_date=self.env["hr.holidays"].search([('employee_id','=',vals['employee_id'])])
+        for rec in holiday_date:
+            if rec.date_from >= vals['date_from'] and rec.date_from <= vals['date_to']:
+                holid_data+=rec.number_of_days_temp
+            print holid_data
+
+        for holid in holiday_date:
+            ho_date+=holid.number_of_days_temp
+        print ho_date+ch_date
+        final_cal= 20-(holid_data+ch_date)
+        if final_cal <0 :
+            vals['absence']= -1 * final_cal
+        else:
+            vals['absence']=final_cal
+
+
+
+
+
+
+        #vv=self.env["hr.attendance"].search_count([('employee_id','=',vals['employee_id']),(listdate[0],'&gt;=',vals['date_from']),(listdate[0],'$lt;=',vals['date_to']),('action','=','sign_in'),'number_log','=',1])
+        #print vv
+
+
+        #print s
+       #  timedelta = to_dt - from_dt
+       # count_absence=self.env["hr.attendance"].search_count([('employee_id','=',vals['employee_id']),('write_date','&lt;=',vals['date_from']),('write_date','$gt;=',vals['date_to']),('action','=','sign in')])
+        #print count_absence
+        return super(odooAbsence,self).create(vals)
+##########Add Date to attendence###############
+class odooAddDateAttendence(models.Model):
+    _inherit ="hr.attendance"
+    check_date=fields.Date()
+    num_log=fields.Integer()
+    @api.model
+    def create(self,vals):
+        number_log=self.search_count([('employee_id','=',vals['employee_id']),('action','=','sign_in')])
+        if number_log == 0 and vals['action'] == 'sign_in':
+            vals['num_log']=1
+        else:
+            vals['num_log']=-1
+        print vals['action']
+        print number_log
+
+        vals['check_date']= datetime.datetime.now()
+        return super(odooAddDateAttendence,self).create(vals)

@@ -1,3 +1,3 @@
 import odoo_hr
+import odoo_hr_attendence
 import odoo_hr_contarct
-
