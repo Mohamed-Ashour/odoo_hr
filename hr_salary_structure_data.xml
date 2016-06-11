@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+        <record id="ir_cron_scheduler_demo_action" model="ir.cron">
+            <field name="name">number of Months</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'odoo_hr.odoo_hr_holidays'" name="model"/>
+            <field eval="'_checkDays'" name="function"/>
+        </record>
+
+
 
         <record id="hr_salary_rule_category_tax" model="hr.salary.rule.category">
             <field name="name">Taxes</field>
@@ -193,7 +205,7 @@ result=-(tax/12)</field>
         </record>
        <record id="hr_salary_rule_deduct" model="hr.salary.rule">
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result= contract.wage -((contract.wage/30) * payslip.absence)
+            <field name="amount_python_compute">result= contract.wage -((contract.wage/30)* payslip.absence+(contract.wage/30)* payslip. unpaid_holiday)
             </field>
             <field name="code">RD</field>
             <field name="category_id" ref="odoo_hr.hr_salary_rule_category_yearpayment"/>
