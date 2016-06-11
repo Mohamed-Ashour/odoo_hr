@@ -11,40 +11,18 @@ from openerp import tools
 
 
 
-class odooHrInhired(models.Model):
-
-    _inherit ="hr.attendance"
-    image=fields.Binary()
-
-    #@api.onchange('employee_id','image')
-    @api.model
-    def create(self, values):
-        contacts1 = self.env['hr.employee'].search([('id','=',values['employee_id'])])
-        values['image']=contacts1.image
-        return super(odooHrInhired,self).create(values)
-
-    @api.multi
-    def write(self, values):
-        contacts1 = self.env['hr.employee'].search([('id','=',values['employee_id'])])
-        values['image']=contacts1.image
-        return super(odooHrInhired,self).write(values)
-
-
-#______________________________________________________________________________
-
-
 class odooHrEmployeeInherit(models.Model):
 
     _inherit ="hr.employee"
     #upload file for  new employee
     #____________ attachment _____________
     data= fields.Binary('File')
-    graduation_certificate=fields.Binary()
+    graduation_certificate = fields.Binary()
     #_______________  experience ____________
-    experience_ids=fields.One2many("odoo_hr.exprience","employee_id",string="Experience")
+    experience_ids = fields.One2many("odoo_hr.exprience","employee_id",string="Experience")
 
     #_______________ Eduvation _________________
-    degree_level=fields.Selection(selection=[('V','Vocational'),('TD','Technical Diploma'),('CD','Collage Diploma'),('BD','Bachelors Degree'),('MD','Master Degree'),('MBA','MBA'),('DD','Doctorate Degree')])
+    degree_level = fields.Selection(selection=[('V','Vocational'),('TD','Technical Diploma'),('CD','Collage Diploma'),('BD','Bachelors Degree'),('MD','Master Degree'),('MBA','MBA'),('DD','Doctorate Degree')])
     @api.depends('degree_from','degree_to')
     def onchange_date_from_to(self,cr, uid, ids, degree_to, degree_from):
         # date_to has to be greater than date_from
@@ -94,7 +72,7 @@ class MyOdooexperiance(models.Model):
 
         # No date_to set so far: automatically compute one 8 hours later
         if date_from and not date_to:
-            date_to_with_delta = datetime.strptime(str(date_from),"%Y-%m-%d")
+            date_to_with_delta = datetime.strptime(str(date_from), "%Y-%m-%d")
             result['value']['date_to'] = str(date_to_with_delta)
 
         # Compute and update the number of days
@@ -107,7 +85,7 @@ class MyOdooexperiance(models.Model):
         return result
 
     @api.depends('date_from','date_to')
-    def onchange_date_to(self, cr, uid, ids, date_to, date_from):
+    def onchange_date_to(self, cr , uid , ids, date_to , date_from):
         """
         Update the number_of_days.
         """

@@ -12,6 +12,14 @@
                          <field name="variable"/>
                      </xpath>
 
+                    <xpath expr="//field[@name='working_hours']" position="after">
+                         <field name="working_from" widget="float_time"/>
+                    </xpath>
+
+                    <xpath expr="//field[@name='working_from']" position="after">
+                         <field name="working_to" widget="float_time"/>
+                    </xpath>
+
             </field>
         </record>
     </data>

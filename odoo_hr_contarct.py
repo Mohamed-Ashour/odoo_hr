@@ -5,6 +5,7 @@ from dateutil import relativedelta
 
 
 class odooContractInhired(models.Model):
+
     _inherit = "hr.contract"
 
     @api.model
@@ -106,3 +107,9 @@ class odooContractInhired(models.Model):
 #     leaves = self.env['hr.holidays'].search([('holiday_status_id','=','1')])
 #     for leave in leaves:
 #         leave.number_of_days = 21
+
+    _inherit ="hr.contract"
+    variable=fields.Float(string='Variable', required=True)
+    working_from=fields.Float(string="workig hours from", required=True)
+    working_to=fields.Float(string="workig hours to", required=True)
+
