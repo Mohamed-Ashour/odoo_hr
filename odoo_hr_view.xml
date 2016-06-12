@@ -9,6 +9,10 @@
             <field name="model">hr.employee</field>
             <field name="inherit_id" ref="hr.view_employee_form"/>
             <field name="arch" type="xml">
+
+                <xpath expr="//notebook/page[@name='public']/group[@string='Position']/field[@name='parent_id']"  position="after">
+                <field name="sub_parent_id"/>
+                </xpath>
                 <xpath expr="//notebook"  position="inside">
                     <page string="Education" >
                         <group string="Degree">

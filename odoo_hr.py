@@ -41,6 +41,9 @@ class odooHrEmployeeInherit(models.Model):
     #----------------- security ---------------
     user_id=fields.Many2one("res.users")
 
+    sub_parent_id= fields.Many2one('hr.employee', string='Sub Manager')
+
+
 class MyOdooexperiance(models.Model):
 
     _name = "odoo_hr.exprience"
