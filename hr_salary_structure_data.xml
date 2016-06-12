@@ -23,6 +23,10 @@
             <field name="name">Year Payment</field>
             <field name="code">YP</field>
         </record>
+        <record id="hr_salary_rule_category_absence_unpaid_holidays" model="hr.salary.rule.category">
+            <field name="name">Absence and Unpaid Holidays</field>
+            <field name="code">AUH</field>
+        </record>
 
         <!-- Salary Rules -->
 
@@ -195,29 +199,40 @@ result=-(tax/12)</field>
 
 
 
-        <record id="hr_salary_rule_net_after_tax" model="hr.salary.rule">
+
+       <record id="hr_salary_rule_deduct" model="hr.salary.rule">
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = categories.NET + categories.TAX</field>
+            <field name="amount_python_compute">result= -((contract.wage/30)* payslip.absence)
+            </field>
+            <field name="code">ABS</field>
+            <field name="category_id" ref="odoo_hr.hr_salary_rule_category_absence_unpaid_holidays"/>
+            <field name="name">Absence</field>
+            <field name="sequence" eval="160"/>
+       </record>
+
+        <record id="hr_salary_rule_unpaid_holiday" model="hr.salary.rule">
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -((contract.wage/30)* payslip.unpaid_holiday) </field>
+            <field name="code">unpaid</field>
+            <field name="category_id" ref="odoo_hr.hr_salary_rule_category_absence_unpaid_holidays"/>
+            <field name="name">Unpaid Holidays</field>
+            <field name="sequence" eval="170"/>
+        </record>
+         <record id="hr_salary_rule_net_after_tax" model="hr.salary.rule">
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = categories.NET + categories.TAX + categories.AUH</field>
             <field name="code">PS</field>
             <field name="category_id" ref="odoo_hr.hr_salary_rule_category_yearpayment"/>
             <field name="name">Payable salary</field>
-            <field name="sequence" eval="140"/>
+            <field name="sequence" eval="180"/>
         </record>
-       <record id="hr_salary_rule_deduct" model="hr.salary.rule">
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">result= contract.wage -((contract.wage/30)* payslip.absence+(contract.wage/30)* payslip. unpaid_holiday)
-            </field>
-            <field name="code">RD</field>
-            <field name="category_id" ref="odoo_hr.hr_salary_rule_category_yearpayment"/>
-            <field name="name">After Deduction</field>
-            <field name="sequence" eval="160"/>
-       </record>
+
 
 
         <record id="hr_salary_structure_egyptian" model="hr.payroll.structure">
             <field name="code">ES</field>
             <field name="name">Egyptian salary</field>
-            <field eval="[(6, 0, [ref('hr_payroll.hr_rule_basic'), ref('hr_salary_rule_variable'), ref('hr_rule_gross'), ref('hr_salary_rule_normal_si_basic'), ref('hr_salary_rule_max_si_basic'), ref('hr_salary_rule_normal_si_var'), ref('hr_salary_rule_max_si_var'), ref('hr_rule_net_before_tax'), ref('hr_salary_rule_yearly_payment'), ref('hr_salary_rule_taxable_yearly_payment'), ref('hr_salary_rule_grade_1'), ref('hr_salary_rule_grade_2'), ref('hr_salary_rule_grade_3'), ref('hr_salary_rule_grade_4'), ref('hr_salary_rule_net_after_tax'),ref('hr_salary_rule_deduct') ])]" name="rule_ids"/>
+            <field eval="[(6, 0, [ref('hr_payroll.hr_rule_basic'), ref('hr_salary_rule_variable'), ref('hr_rule_gross'), ref('hr_salary_rule_normal_si_basic'), ref('hr_salary_rule_max_si_basic'), ref('hr_salary_rule_normal_si_var'), ref('hr_salary_rule_max_si_var'), ref('hr_rule_net_before_tax'), ref('hr_salary_rule_yearly_payment'), ref('hr_salary_rule_taxable_yearly_payment'), ref('hr_salary_rule_grade_1'), ref('hr_salary_rule_grade_2'), ref('hr_salary_rule_grade_3'), ref('hr_salary_rule_grade_4'),ref('hr_salary_rule_unpaid_holiday'),ref('hr_salary_rule_deduct'), ref('hr_salary_rule_net_after_tax') ])]" name="rule_ids"/>
             <field name="company_id" ref="base.main_company"/>
         </record>
 
