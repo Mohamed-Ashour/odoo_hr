@@ -37,9 +37,11 @@ class odooHrEmployeeInherit(models.Model):
     fields_study=fields.Char()
     grade=fields.Selection(selection=[('A','A / Excellent / 85-100 %'),('B','B / Very good / 75-85 %'),('C','C / Good / 65-75 %'),('NS','Not Specified')])
     note=fields.Text()
+    user_id=fields.Many2one("res.users")
 
     #----------------- security ---------------
     user_id=fields.Many2one("res.users")
+
 
 class MyOdooexperiance(models.Model):
 
@@ -139,13 +141,11 @@ class odooAbsence(models.Model):
     unpaid_holiday=fields.Integer()
     @api.model
     def create(self, vals):
-        print vals['date_from']
-        print vals['employee_id']
         vals['absence']=5
         ch_date=0
         ho_date=0
         unpaid=0
-        print vals['absence']
+
         DATETIME_FORMAT = "%Y-%m-%d"
 
         attendance_data=self.env["hr.attendance"].search([])
@@ -172,18 +172,13 @@ class odooAbsence(models.Model):
             print "Trueee"
         for lo in listdate:
             ch_date+=self.env["hr.attendance"].search_count([('employee_id','=',vals['employee_id']),('check_date','=',lo),('num_log','=',1)])
-        print "date1"
-        print ch_date
-
         holiday_date=self.env["hr.holidays"].search([('employee_id','=',vals['employee_id'])])
         for rec in holiday_date:
             for x in rec.holiday_status_id.ids:
                 if x !=4 :
                     if rec.date_from >= vals['date_from'] and rec.date_from <= vals['date_to'] and (rec.state == "validate" or rec.state== "confirm" ) and rec.type== "remove":
                         holid_data+=rec.number_of_days_temp
-               # print rec.holiday_status_id[0]
-            print "date2"
-            print holid_data
+
         final_cal= 20-(holid_data+ch_date)
         if final_cal <0 :
             vals['absence']= -1 * final_cal
@@ -211,22 +206,6 @@ class odooAddDateAttendence(models.Model):
     @api.model
     def create(self,vals):
         vals['check_date']= datetime.datetime.now()
-        #list_date=[]
-        #logging_dates=self.search([])
-        #for m in logging_dates:
-        #    count=0
-        #    att_date=m.check_date
-        #    if len(list_date) != 0:
-        #        for x in list_date:
-        #            if x == att_date :
-        #                count+=1
-                #print count
-        #        if count == 0:
-        #            list_date.append(att_date)
-        #    else:
-        #        list_date.append(att_date)
-        #if vals['check_date'] not in att_date:
-
         number_log=self.search_count([('employee_id','=',vals['employee_id']),('action','=','sign_in'),('check_date','=',vals['check_date'])])
         if number_log == 0 and vals['action'] == 'sign_in':
             vals['num_log']=1
@@ -237,4 +216,12 @@ class odooAddDateAttendence(models.Model):
 
 
         return super(odooAddDateAttendence,self).create(vals)
-###################Unpaid Holidays##########################################
+###Hierarchy########################################s
+class odooHierarchyEmployees(models.Model):
+    _inherit="hr.department"
+
+    default_department_id = fields.Many2one('employee.department',
+                                        string='My User',
+                                        )
+
+
