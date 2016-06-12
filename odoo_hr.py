@@ -38,6 +38,8 @@ class odooHrEmployeeInherit(models.Model):
     grade=fields.Selection(selection=[('A','A / Excellent / 85-100 %'),('B','B / Very good / 75-85 %'),('C','C / Good / 65-75 %'),('NS','Not Specified')])
     note=fields.Text()
 
+    #----------------- security ---------------
+    user_id=fields.Many2one("res.users")
 
 class MyOdooexperiance(models.Model):
 
@@ -126,6 +128,10 @@ class MyOdooexperiance(models.Model):
     ecertificate=fields.Binary()
     employee_id=fields.Many2one("hr.employee")
     country= fields.Selection(selection=[('E','Egypt')])
+
+
+
+
     ########################Absence  ########################
 class odooAbsence(models.Model):
     _inherit = "hr.payslip"
