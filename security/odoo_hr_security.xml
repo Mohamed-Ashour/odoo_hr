@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <!-- to enter in database more than  one     -->
+    <data noupdate="0">
+         <record id="base.group_hr_supermanager" model="res.groups">
+        <field name="name">Super Manager</field>
+        <field name="comment">the user will have an access to the human resources configuration as well as statistic reports.</field>
+        <field name="category_id" ref="base.module_category_human_resources"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_hr_manager'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+
+
+
+    </data>
+</openerp>

@@ -11,7 +11,12 @@ Adding Egyptian rules to HR module
         'odoo_hr_view.xml',
         'odoo_hr_contarct_view.xml',
         'hr_salary_structure_data.xml',
+
+        'security/odoo_hr_security.xml',
+        'security/ir.model.access.csv',
+
         'odoo_hr_attendence_view.xml',
         'odoo_hr_devorce.xml'
+
     ],
 }
