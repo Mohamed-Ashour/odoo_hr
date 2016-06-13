@@ -40,7 +40,9 @@ class odooHrEmployeeInherit(models.Model):
     user_id=fields.Many2one("res.users")
 
     #----------------- security ---------------
-    user_id=fields.Many2one("res.users")
+
+
+    sub_parent_id= fields.Many2one('hr.employee', string='Sub Manager')
 
 
 class MyOdooexperiance(models.Model):
@@ -233,6 +235,9 @@ class odooAddDateAttendence(models.Model):
 ###Holidays ########################################
 class odooHolidaysFun(models.Model):
     _name = "odoo_hr.odooholiday"
+
+
+    default_department_id = fields.Many2one('employee.department',string='My User')
 
 
     @api.model

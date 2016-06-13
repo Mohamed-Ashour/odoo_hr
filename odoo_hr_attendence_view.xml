@@ -16,9 +16,7 @@
                 <xpath expr="//field[@name='action']" position="after">
                          <field name="late"/>
                 </xpath>
-                <xpath expr="//field[@name='late']" position="after">
-                         <field name="overtime"/>
-                </xpath>
+
 
             </field>
         </record>
