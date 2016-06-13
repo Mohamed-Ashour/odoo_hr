@@ -1,4 +1,4 @@
-import datetime
+###import datetime
 
 from time import strptime
 from datetime import datetime
@@ -221,7 +221,7 @@ class odooAddDateAttendence(models.Model):
     num_log=fields.Integer()
     @api.model
     def create(self,vals):
-        vals['check_date']= datetime.datetime.now()
+        vals['check_date']= datetime.now()
         number_log=self.search_count([('employee_id','=',vals['employee_id']),('action','=','sign_in'),('check_date','=',vals['check_date'])])
         if number_log == 0 and vals['action'] == 'sign_in':
             vals['num_log']=1
