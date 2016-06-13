@@ -1,7 +1,7 @@
 import datetime
 
 from time import strptime
-#from datetime import datetime
+from datetime import datetime
 
 import exceptions
 
@@ -184,6 +184,20 @@ class odooAbsence(models.Model):
             vals['absence']= -1 * final_cal
         else:
             vals['absence']=final_cal
+        ##############Yearly HOlidayss###########################
+        yearly_holidays=self.env['odoo_hr.odooholiday'].search([])
+        for yh in yearly_holidays:
+           if yh.start_date > vals['date_from'] and yh.end_date <= vals['date_to']:
+
+               DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
+               from_dt = datetime.strptime(yh.start_date, DATETIME_FORMAT)
+               to_dt = datetime.strptime(yh.end_date, DATETIME_FORMAT)
+               timedelta = to_dt-from_dt
+               diff_day = timedelta.days + float(timedelta.seconds) / 86400
+               vals['absence']= vals['absence']-(round(math.floor(diff_day))+1)
+
+
+
     #########Unpaid Holiday######################
 
         for rec in holiday_date:
@@ -216,12 +230,18 @@ class odooAddDateAttendence(models.Model):
 
 
         return super(odooAddDateAttendence,self).create(vals)
-###Hierarchy########################################s
-class odooHierarchyEmployees(models.Model):
-    _inherit="hr.department"
+###Holidays ########################################
+class odooHolidaysFun(models.Model):
+    _name = "odoo_hr.odooholiday"
 
-    default_department_id = fields.Many2one('employee.department',
-                                        string='My User',
-                                        )
 
+    @api.model
+    def create(self, vals):
+        if vals['end_date'] < vals['start_date']:
+              raise exceptions.ValidationError("The start date must be anterior to the end date. ")
+        return super(odooHolidaysFun,self).create(vals)
+
+    name=fields.Char(string="Name of Holiday",required=True)
+    start_date=fields.Datetime(required=True)
+    end_date=fields.Datetime(required=True)
 
