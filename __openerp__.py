@@ -16,6 +16,7 @@ Adding Egyptian rules to HR module
         'security/ir.model.access.csv',
 
         'odoo_hr_attendence_view.xml',
+        'odoo_hr_payslip_view.xml',
         'odoo_hr_devorce.xml'
 
     ],
