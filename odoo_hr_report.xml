@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+        <report
+             id="odoo_hr_first_report_leaves"
+             model="hr.holidays"
+             name="odoo_hr.leaves_report"
+             file="odoo_hr.leaves_report"
+             report_type="qweb-pdf"
+             string="Report"/>
+    </data>
+    </openerp>

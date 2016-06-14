@@ -17,7 +17,12 @@ Adding Egyptian rules to HR module
 
         'odoo_hr_attendence_view.xml',
         'odoo_hr_payslip_view.xml',
-        'odoo_hr_devorce.xml'
+        'odoo_hr_devorce.xml',
+        
+        'views/leaves_report.xml',
+        'odoo_hr_report.xml',
+        'wizard/hr_holidays_summary_employee_view.xml',
+        'wizard/hr_employee_salary.xml',
 
     ],
 }
