@@ -28,6 +28,11 @@
             <field name="code">AUH</field>
         </record>
 
+        <record id="hr_salary_rule_category_extra_working_hours" model="hr.salary.rule.category">
+            <field name="name">Extra Workig Hours Category</field>
+            <field name="code">EWHC</field>
+        </record>
+
         <!-- Salary Rules -->
 
         <record id="hr_salary_rule_variable" model="hr.salary.rule">
@@ -219,7 +224,14 @@ result=-(tax/12)</field>
             <field name="sequence" eval="170"/>
         </record>
 
-
+        <record id="hr_salary_rule_extra_working_hours" model="hr.salary.rule">
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = ((contract.wage / (30*(contract.working_to - contract.working_from))) * payslip.extra_working_houres) </field>
+            <field name="code">EWH</field>
+            <field name="category_id" ref="odoo_hr.hr_salary_rule_category_extra_working_hours"/>
+            <field name="name">Extra Working Houres</field>
+            <field name="sequence" eval="180"/>
+        </record>
 
          <record id="hr_salary_rule_net_after_tax" model="hr.salary.rule">
             <field name="amount_select">code</field>
