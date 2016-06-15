@@ -1,4 +1,4 @@
-from openerp import models,fields,api
+from openerp import models, fields, api
 from datetime import datetime
 from dateutil import relativedelta
 

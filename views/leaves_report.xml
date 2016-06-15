@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="leaves_report">
+            <t t-call="report.html_container">
+                    <t t-call="report.external_layout">
+
+                        <div class="page">
+                            <div class="row">
+                                <h2> Leaves Reports </h2>
+                            </div> <!-- end row -->
+
+                            <div class="row">
+                                <div class="col-ms-12">
+                                    <table class="table table-bordered">
+                                        <tr class="info" >
+                                            <th> Employee</th>
+                                            <th> Leave Type</th>
+                                            <th> Description</th>
+                                            <th> Allocated Days </th>
+                                            <th> Start Date</th>
+                                            <th>End Date </th>
+                                            <th>Status</th>
+                                        </tr>
+                                        <t t-foreach="docs" t-as="o">
+                                            <tr>
+                                                <td><span t-field="o.employee_id"/></td>
+                                                <td><span t-field="o.holiday_status_id"/></td>
+                                                <td><span t-field="o.name"/></td>
+                                                <td><span t-field="o.number_of_days_temp"/></td>
+                                                <td><span t-field="o.date_from"/></td>
+                                                <td><span t-field="o.date_to"/></td>
+                                                <td><span t-field="o.state"/> </td>
+                                            </tr>
+                                        </t>
+                                    </table>
+                                    <br/>
+                                    <br/>
+                                </div>
+                            </div>
+
+                        </div> <!-- end page -->
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>
