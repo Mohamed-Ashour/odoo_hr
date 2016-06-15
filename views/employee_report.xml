@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="employee_report">
+            <t t-call="report.html_container">
+                    <t t-call="report.external_layout">
+                        <div class="page">
+                            <div class="row">
+                                <h2> Employee Reports </h2>
+                            </div> <!-- end row -->
+                            <div class="row">
+                                <div class="col-ms-12">
+                                    <table class="table table-bordered">
+                                        <tr class="info" >
+                                            <th> Name</th>
+                                            <th> Work Phone</th>
+                                            <th> Work Email</th>
+                                            <th> Department </th>
+                                            <th> Jop Title</th>
+                                            <th>Manager </th>
+
+                                        </tr>
+                                        <t t-foreach="docs" t-as="o">
+                                            <tr>
+                                                <td><span t-field="o.name"/></td>
+                                                <td><span t-field="o.work_phone"/></td>
+                                                <td><span t-field="o.work_email"/></td>
+                                                <td><span t-field="o.department_id"/></td>
+                                                <td><span t-field="o.job_id"/></td>
+                                                <td><span t-field="o.parent_id"/> </td>
+                                            </tr>
+                                        </t>
+                                    </table>
+                                    <br/>
+                                    <br/>
+                                </div>
+                            </div>
+
+                        </div> <!-- end page -->
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>
+

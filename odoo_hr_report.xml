@@ -10,5 +10,13 @@
              file="odoo_hr.leaves_report"
              report_type="qweb-pdf"
              string="Report"/>
+
+           <report
+             id="myodoo_first_report_employee"
+             model="hr.employee"
+             name="myodoo.employee_report"
+             file="myodoo.employee_report"
+             report_type="qweb-pdf"
+             string="Report Employee"/>
     </data>
     </openerp>
