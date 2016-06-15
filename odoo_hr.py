@@ -147,9 +147,7 @@ class odooAbsence(models.Model):
         ch_date=0
         ho_date=0
         unpaid=0
-
         DATETIME_FORMAT = "%Y-%m-%d"
-
         attendance_data=self.env["hr.attendance"].search([])
         listdate=[]
         holid_data=0
@@ -168,8 +166,6 @@ class odooAbsence(models.Model):
             else:
                 listdate.append(att_date)
 
-
-        print listdate
         if listdate[0] >= vals['date_from']:
             print "Trueee"
         for lo in listdate:
@@ -197,20 +193,13 @@ class odooAbsence(models.Model):
                timedelta = to_dt-from_dt
                diff_day = timedelta.days + float(timedelta.seconds) / 86400
                vals['absence']= vals['absence']-(round(math.floor(diff_day))+1)
-
-
-
-    #########Unpaid Holiday######################
+ #########Unpaid Holiday######################
 
         for rec in holiday_date:
-            #print "data6"
-            #print rec.holiday_status_id.ids
-            for x in rec.holiday_status_id.ids:
-                #print x
-                if x == 4:
+          for x in rec.holiday_status_id.ids:
+              if x == 4:
                     if rec.date_from >= vals['date_from'] and rec.date_from <= vals['date_to']  and (rec.state =="validate" or rec.state=="confirm" )and rec.type== "remove":
                        unpaid+=rec.number_of_days_temp
-                      # print "date5"
         vals['unpaid_holiday']=unpaid
 
         return super(odooAbsence,self).create(vals)
@@ -235,11 +224,7 @@ class odooAddDateAttendence(models.Model):
 ###Holidays ########################################
 class odooHolidaysFun(models.Model):
     _name = "odoo_hr.odooholiday"
-
-
     default_department_id = fields.Many2one('employee.department',string='My User')
-
-
     @api.model
     def create(self, vals):
         if vals['end_date'] < vals['start_date']:
