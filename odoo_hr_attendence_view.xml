@@ -17,6 +17,9 @@
                          <field name="late"/>
                 </xpath>
 
+                <xpath expr="//field[@name='late']" position="after">
+                         <field name="over_time"/>
+                </xpath>
 
             </field>
         </record>

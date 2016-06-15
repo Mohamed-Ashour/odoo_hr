@@ -218,6 +218,9 @@ result=-(tax/12)</field>
             <field name="name">Unpaid Holidays</field>
             <field name="sequence" eval="170"/>
         </record>
+
+
+
          <record id="hr_salary_rule_net_after_tax" model="hr.salary.rule">
             <field name="amount_select">code</field>
             <field name="amount_python_compute">result = categories.NET + categories.TAX + categories.AUH</field>
