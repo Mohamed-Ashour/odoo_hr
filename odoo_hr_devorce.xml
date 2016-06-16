@@ -22,7 +22,7 @@
              <field name="domain">[('number_of_days','&lt;=',-15),('state','!=','validate')]</field>
 
         </record>
-
+<!--
         <record model="ir.actions.act_window" id="action_display_id_query">
             <field name="name">Yearly Holidays</field>
             <field name="res_model">odoo_hr.odooholiday</field>
@@ -57,9 +57,9 @@
 
                 </form>
             </field>
-        </record>
+        </record>-->
          <!-- View Report payslip-->
-         <report
+     <!--    <report
             id="report_payslip"
             model="odoo_hr.payslip_report"
             string="Payslip Report"
@@ -80,9 +80,9 @@
                     <field name="unpaid_holiday"/>
                 </tree>
             </field>
-        </record>
+        </record>-->
         <!-- Payroll Report Action Menu-->
-          <record model="ir.actions.act_window" id="action_hr_payslip_tree_report">
+    <!--      <record model="ir.actions.act_window" id="action_hr_payslip_tree_report">
             <field name="name">paySlip with Holidays</field>
             <field name="res_model">hr.payslip</field>
             <field name="view_type">form</field>
@@ -90,7 +90,7 @@
             <field name="domain">[('absence','&gt;=','0'),('absence','&lt;=','50')]</field>
 
          </record>
-
+-->
 
         <menuitem name="Devorec Employees" parent="hr_holidays.menu_hr_holidays_root" id="menu_open_per_appri_req"
          action="action_display_id"/>

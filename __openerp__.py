@@ -21,6 +21,8 @@ Adding Egyptian rules to HR module
 
         'views/leaves_report.xml',
         'views/employee_report.xml',
+        'views/payslip_report.xml',
+
         'odoo_hr_report.xml',
         'wizard/hr_holidays_summary_employee_view.xml',
         'wizard/hr_employee_salary.xml',

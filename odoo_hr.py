@@ -132,11 +132,7 @@ class MyOdooexperiance(models.Model):
     ecertificate=fields.Binary()
     employee_id=fields.Many2one("hr.employee")
     country= fields.Selection(selection=[('E','Egypt')])
-
-
-
-
-    ########################Absence  ########################
+  ########################Absence  ########################
 class odooAbsence(models.Model):
     _inherit = "hr.payslip"
     absence= fields.Integer()
@@ -193,6 +189,8 @@ class odooAbsence(models.Model):
                timedelta = to_dt-from_dt
                diff_day = timedelta.days + float(timedelta.seconds) / 86400
                vals['absence']= vals['absence']-(round(math.floor(diff_day))+1)
+               print "holidays"
+               print vals['absence']
  #########Unpaid Holiday######################
 
         for rec in holiday_date:
