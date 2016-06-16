@@ -8,6 +8,7 @@ import exceptions
 from openerp import models,fields,api,exceptions
 import math
 from openerp import tools
+import calendar
 
 
 
@@ -185,6 +186,8 @@ class odooAbsence(models.Model):
 
                DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
                from_dt = datetime.strptime(yh.start_date, DATETIME_FORMAT)
+               print "weekday"
+               print calendar.day_name[vals['date_to'].weekday()]
                to_dt = datetime.strptime(yh.end_date, DATETIME_FORMAT)
                timedelta = to_dt-from_dt
                diff_day = timedelta.days + float(timedelta.seconds) / 86400
