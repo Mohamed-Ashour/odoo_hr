@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-       <report
-             id="myodoo_first_report_employee"
-             model="hr.employee"
-             name="odoo_hr.first_report"
-             file="odoo_hr.first_report"
-             report_type="qweb-pdf"
-             string="Report Employee"/>
+       <!--<report-->
+             <!--id="myodoo_first_report_employee"-->
+             <!--model="hr.employee"-->
+             <!--name="odoo_hr.first_report"-->
+             <!--file="odoo_hr.first_report"-->
+             <!--report_type="qweb-pdf"-->
+             <!--string="Report Employee"/>-->
        <report
              id="myodoo_more_details_employee"
              model="hr.employee"
@@ -15,8 +15,6 @@
              file="odoo_hr.more_details_report"
              report_type="qweb-pdf"
              string="More Details About Employee"/>
-
-
        <report
              id="myodoo_first_report_leaves"
              model="hr.holidays"
