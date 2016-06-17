@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="more_details_report">
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <div class="page">
+                        <div class="row">
+                            <h2> More Details About Employee </h2>
+                        </div> <!-- end row -->
+                         <t t-foreach="docs" t-as="o">
+<!--style="display: inline-block;"-->
+                        <div class="row">
+                            <div class="col-ms-4">
+                                 <span itemprop="image" t-field="o.image" t-field-options='{"widget": "image"}' />
+                            </div>
+                        </div>
+                         <div class="row">
+                             <div class="col-ms-2">
+
+                             </div>
+                             <div class="col-ms-4">
+                                  <h2>Public Information</h2>
+                             </div>
+                         </div>
+                        <div class="row">
+                           <div class="col-ms-6">
+                               <table>
+                                   <tr>
+                                       <th>Working Adress</th>
+                                       <td><span t-field="o.address_id"/></td>
+                                   </tr>
+                                    <tr>
+                                       <th>work Mobile </th>
+                                       <td><span t-field="o.mobile_phone"/></td>
+                                   </tr>
+                                    <tr>
+                                       <th>Work Locations</th>
+                                       <td><span t-field="o.work_location"/></td>
+                                   </tr>
+                                    <tr>
+                                       <th> Work Email</th>
+                                       <td><span t-field="o.work_email"/></td>
+                                   </tr>
+                                    <tr>
+                                       <th> Work Phone</th>
+                                       <td><span t-field="o.work_phone"/></td>
+                                   </tr>
+
+                               </table>
+                           </div>
+                           <div class="col-ms-5">
+                               <table>
+                                    <tr>
+                                       <th> Department</th>
+                                       <td><span t-field="o.department_id"/></td>
+                                   </tr>
+                                   <tr>
+                                       <th> Jop Title </th>
+                                       <td><span t-field="o.job_id"/></td>
+                                   </tr>
+                                    <tr>
+                                       <th> Manager </th>
+                                       <td><span t-field="o.parent_id"/></td>
+                                   </tr>
+
+                               </table>
+                           </div>
+                        </div>
+                        <div class="row">
+                             <div class="col-ms-12">
+                                 <h2>Education</h2>
+                             </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-ms-6">
+                                <table>
+                                   <tr>
+                                       <th> Degree Level </th>
+                                       <td><span t-field="o.degree_level"/></td>
+                                   </tr>
+                                   <tr>
+                                       <th>Location </th>
+                                       <td><span t-field="o.country_id"/></td>
+                                   </tr>
+                                   <tr>
+                                       <th>University </th>
+                                       <td><span t-field="o.university_name"/></td>
+                                   </tr>
+                                   <tr>
+                                       <th>Fields Study  </th>
+                                       <td><span t-field="o.fields_study"/></td>
+                                   </tr>
+                                   <tr>
+                                       <th>Grade  </th>
+                                       <td><span t-field="o.grade"/></td>
+                                   </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </t> <!-- end  loop -->
+                </div> <!-- end page -->
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>
