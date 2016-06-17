@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="coptic_christmas_day" model="odoo_hr.odooholiday">
+           <field name="name">Coptic Christmas Day</field>
+           <field name="start_date">2016-1-7 </field>
+           <field name="end_date">2016-1-7 </field>
+        </record>
+        <record id="revolution_day_january" model="odoo_hr.odooholiday">
+           <field name="name">Revolution Day January 25</field>
+           <field name="start_date">2016-1-25 </field>
+           <field name="end_date">2016-1-25 </field>
+        </record>
+        <record id="sinai_liberation_day" model="odoo_hr.odooholiday">
+           <field name="name">Sinai Liberation Day</field>
+           <field name="start_date">2016-4-25 </field>
+           <field name="end_date">2016-4-25 </field>
+        </record>
+         <record id="coptic_easter_labor" model="odoo_hr.odooholiday">
+           <field name="name">Coptic Easter Sunday and Labor Day</field>
+           <field name="start_date">2016-5-1 </field>
+           <field name="end_date">2016-5-1 </field>
+        </record>
+         <record id="spring_festival" model="odoo_hr.odooholiday">
+           <field name="name">Spring Festival</field>
+           <field name="start_date">2016-5-2 </field>
+           <field name="end_date">2016-5-2 </field>
+        </record>
+        <record id="june_uprising" model="odoo_hr.odooholiday">
+           <field name="name">June 30 Uprising</field>
+           <field name="start_date">2016-6-30 </field>
+           <field name="end_date">2016-6-30 </field>
+        </record>
+        <record id="eid_alfitr" model="odoo_hr.odooholiday">
+           <field name="name">Eid Al Fitr	</field>
+           <field name="start_date">2016-7-7</field>
+           <field name="end_date">2016-7-9</field>
+        </record>
+        <record id="revolution_day_30" model="odoo_hr.odooholiday">
+           <field name="name">Revolution Day July 23</field>
+           <field name="start_date">2016-7-23</field>
+           <field name="end_date">2016-7-23</field>
+        </record>
+         <record id="armed_forces_day" model="odoo_hr.odooholiday">
+           <field name="name">Armed Forces Day</field>
+           <field name="start_date">2016-10-6 </field>
+           <field name="end_date">2016-10-6 </field>
+        </record>
+         <record id="muharram" model="odoo_hr.odooholiday">
+           <field name="name">	Muharram</field>
+           <field name="start_date">2016-10-3</field>
+           <field name="end_date">2016-10-3</field>
+        </record>
+         <record id="feast_of_the_sacrifice" model="odoo_hr.odooholiday">
+           <field name="name">Feast of the Sacrifice</field>
+           <field name="start_date">2016-9-13</field>
+           <field name="end_date">2016-9-16</field>
+        </record>
+         <record id="prophet_mohamed_birthday" model="odoo_hr.odooholiday">
+           <field name="name">Prophet Mohamed's birthday</field>
+           <field name="start_date">2016-12-12</field>
+           <field name="end_date">2016-12-12</field>
+        </record>
+
+
+
+
+
+
+    </data>
+</openerp>

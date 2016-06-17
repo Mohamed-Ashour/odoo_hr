@@ -92,9 +92,8 @@
          </record>
 -->
 
-        <menuitem name="Devorec Employees" parent="hr_holidays.menu_hr_holidays_root" id="menu_open_per_appri_req"
-         action="action_display_id"/>
-        <menuitem name=" Yearly Holidays " parent="hr_holidays.menu_hr_holidays_root" id="menu_open_per"
+
+        <menuitem name="National holidays" parent="hr_holidays.menu_hr_holidays_root" id="menu_open_per"
          action="action_display_id_query"/>
         <!--
          Payslips Report

@@ -1,22 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-         <template id="payslip_report">
+
+        <template id="report_payslip">
             <t t-call="report.html_container">
-                <t t-foreach="docs" t-as="o">
                     <t t-call="report.external_layout">
+
                         <div class="page">
-                            <h2>Report title</h2>
-                            <p>This object's name is <span t-field="o.absence"/></p>
-                        </div>
-                    </t>
+                            <div class="row">
+                                <h2> Absence and Unpaid Holidays </h2>
+                            </div> <!-- end row -->
+
+                            <div class="row">
+                                <div class="col-ms-12">
+                                    <table class="table table-bordered">
+                                        <tr class="info" >
+                                            <th> Employee</th>
+                                            <th>Payslip Name </th>
+                                            <th> Start Date</th>
+                                            <th> End Date </th>
+                                            <th> Number of Absence</th>
+                                            <th>Number of Unpaid Holidays </th>
+
+                                        </tr>
+                                        <t t-foreach="docs" t-as="o">
+                                            <tr>
+
+
+                                                <td><span t-field="o.employee_id"/></td>
+                                                <td><span t-field="o.name"/></td>
+                                                <td><span t-field="o.date_from"/></td>
+                                                <td><span t-field="o.date_to"/></td>
+                                                <td><span t-field="o.absence"/></td>
+                                                <td><span t-field="o.unpaid_holiday"/></td>
+                                                </tr>
+                                        </t>
+                                    </table>
+                                    <br/>
+                                    <br/>
+                                </div>
+                            </div>
+
+                        </div> <!-- end page -->
                 </t>
             </t>
-         </template>
-
-
-
-
-
+        </template>
     </data>
 </openerp>

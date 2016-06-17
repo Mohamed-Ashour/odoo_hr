@@ -2,6 +2,10 @@
 
 from time import strptime
 from datetime import datetime
+from datetime import date
+from  datetime import time
+from datetime import timedelta
+
 
 import exceptions
 
@@ -182,18 +186,14 @@ class odooAbsence(models.Model):
         ##############Yearly HOlidayss###########################
         yearly_holidays=self.env['odoo_hr.odooholiday'].search([])
         for yh in yearly_holidays:
-           if yh.start_date > vals['date_from'] and yh.end_date <= vals['date_to']:
-
-               DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
+            if yh.start_date > vals['date_from'] and yh.end_date <= vals['date_to']:
+               DATETIME_FORMAT = "%Y-%m-%d"
                from_dt = datetime.strptime(yh.start_date, DATETIME_FORMAT)
-               print "weekday"
-               print calendar.day_name[vals['date_to'].weekday()]
+               
                to_dt = datetime.strptime(yh.end_date, DATETIME_FORMAT)
                timedelta = to_dt-from_dt
                diff_day = timedelta.days + float(timedelta.seconds) / 86400
                vals['absence']= vals['absence']-(round(math.floor(diff_day))+1)
-               print "holidays"
-               print vals['absence']
  #########Unpaid Holiday######################
 
         for rec in holiday_date:
@@ -204,6 +204,7 @@ class odooAbsence(models.Model):
         vals['unpaid_holiday']=unpaid
 
         return super(odooAbsence,self).create(vals)
+
 ##########Add Date to attendence###########################################
 class odooAddDateAttendence(models.Model):
     _inherit ="hr.attendance"
@@ -233,6 +234,8 @@ class odooHolidaysFun(models.Model):
         return super(odooHolidaysFun,self).create(vals)
 
     name=fields.Char(string="Name of Holiday",required=True)
-    start_date=fields.Datetime(required=True)
-    end_date=fields.Datetime(required=True)
+    start_date=fields.Date(required=True)
+    end_date=fields.Date(required=True)
+    _sql_constraints =[('name', 'unique(name)',"Can't be duplicate value for this field!"),('start_date', 'unique(start_date)',"Can't be duplicate value for this field!"),('end_date', 'unique(end_date)',"Can't be duplicate value for this field!")]
+
 
