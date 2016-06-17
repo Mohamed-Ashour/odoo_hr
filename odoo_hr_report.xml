@@ -3,7 +3,7 @@
     <data>
 
 
-        <report
+           <report
              id="odoo_hr_first_report_leaves"
              model="hr.holidays"
              name="odoo_hr.leaves_report"
@@ -18,5 +18,15 @@
              file="myodoo.employee_report"
              report_type="qweb-pdf"
              string="Report Employee"/>
+        <!--PaySlip REport-->
+            <report
+            id="report_payslip_display"
+            model="hr.payslip"
+            string="Absence and Unpaid Holidays "
+            report_type="qweb-pdf"
+            name="odoo_hr.report_payslip"
+            file="odoo_hr.report_payslip"
+
+            />
     </data>
     </openerp>
