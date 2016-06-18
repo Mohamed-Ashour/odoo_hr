@@ -145,7 +145,6 @@ class odooAbsence(models.Model):
     unpaid_holiday=fields.Integer()
     @api.model
     def create(self, vals):
-
         ch_date=0
         ho_date=0
         unpaid=0
@@ -188,16 +187,15 @@ class odooAbsence(models.Model):
             else:
                 listdate.append(att_date)
 
-        if listdate[0] >= vals['date_from']:
-            print "Trueee"
-        for lo in listdate:
-            ch_date+=self.env["hr.attendance"].search_count([('employee_id','=',vals['employee_id']),('check_date','=',lo),('num_log','=',1)])
-        holiday_date=self.env["hr.holidays"].search([('employee_id','=',vals['employee_id'])])
-        for rec in holiday_date:
-            for x in rec.holiday_status_id.ids:
-                if x !=4 :
-                    if rec.date_from >= vals['date_from'] and rec.date_from <= vals['date_to'] and (rec.state == "validate" or rec.state== "confirm" ) and rec.type== "remove":
-                        holid_data+=rec.number_of_days_temp
+
+            for lo in listdate:
+                ch_date+=self.env["hr.attendance"].search_count([('employee_id','=',vals['employee_id']),('check_date','=',lo),('num_log','=',1)])
+            holiday_date=self.env["hr.holidays"].search([('employee_id','=',vals['employee_id'])])
+            for rec in holiday_date:
+                for x in rec.holiday_status_id.ids:
+                    if x !=4 :
+                        if rec.date_from >= vals['date_from'] and rec.date_from <= vals['date_to'] and (rec.state == "validate" or rec.state== "confirm" ) and rec.type== "remove":
+                            holid_data+=rec.number_of_days_temp
 
         final_cal= (cal_work_days-weekend_holidays)-(holid_data+ch_date)
 
