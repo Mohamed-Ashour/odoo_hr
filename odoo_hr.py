@@ -188,8 +188,6 @@ class odooAbsence(models.Model):
             else:
                 listdate.append(att_date)
 
-        if listdate[0] >= vals['date_from']:
-            print "Trueee"
         for lo in listdate:
             ch_date+=self.env["hr.attendance"].search_count([('employee_id','=',vals['employee_id']),('check_date','=',lo),('num_log','=',1)])
         holiday_date=self.env["hr.holidays"].search([('employee_id','=',vals['employee_id'])])
@@ -275,5 +273,5 @@ class odooHolidaysFun(models.Model):
 #################Check if the date of Holidays is in weekly holidays########
 class odooweeklyholidays(models.Model):
     _name = "odoo_hr.weeklyholidays"
-    day_of_week=fields.Selection(selection=[('Saturday','Saturday'),('Sunday','Sunday'),('Monday','Monday'),('Tuesday','Tuesday'),('Wednesday','Wednesday'),('Thursday','Thursday'),('Friday','Friday')],required=True)
+    day_of_week=fields.Selection(selection=[('Saturday','Saturday'),('Sunday','Sunday'),('Monday','Monday'),('Tuesday','Tuesday'),('Wednesday','Wednesday'),('Thursday','Thursday'),('Friday','Friday')])
     _sql_constraints =[('day_of_week', 'unique(day_of_week)',"Can't be duplicate value for this field!")]
