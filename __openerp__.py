@@ -14,9 +14,6 @@ Adding Egyptian rules to HR module
         'national_holidays_date.xml',
         'weekend_date.xml',
 
-        'security/odoo_hr_security.xml',
-        'security/ir.model.access.csv',
-
         'odoo_hr_attendence_view.xml',
         'odoo_hr_payslip_view.xml',
         'odoo_hr_devorce.xml',
@@ -25,6 +22,8 @@ Adding Egyptian rules to HR module
         'views/employee_report.xml',
         'views/payslip_report.xml',
         'views/more_details_report.xml',
+        'security/odoo_hr_security.xml',
+        'security/ir.model.access.csv',
 
 
         'odoo_hr_report.xml',

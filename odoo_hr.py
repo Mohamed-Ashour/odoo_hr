@@ -188,6 +188,7 @@ class odooAbsence(models.Model):
                 listdate.append(att_date)
 
 
+
             for lo in listdate:
                 ch_date+=self.env["hr.attendance"].search_count([('employee_id','=',vals['employee_id']),('check_date','=',lo),('num_log','=',1)])
             holiday_date=self.env["hr.holidays"].search([('employee_id','=',vals['employee_id'])])
@@ -196,6 +197,16 @@ class odooAbsence(models.Model):
                     if x !=4 :
                         if rec.date_from >= vals['date_from'] and rec.date_from <= vals['date_to'] and (rec.state == "validate" or rec.state== "confirm" ) and rec.type== "remove":
                             holid_data+=rec.number_of_days_temp
+
+        for lo in listdate:
+            ch_date+=self.env["hr.attendance"].search_count([('employee_id','=',vals['employee_id']),('check_date','=',lo),('num_log','=',1)])
+        holiday_date=self.env["hr.holidays"].search([('employee_id','=',vals['employee_id'])])
+        for rec in holiday_date:
+            for x in rec.holiday_status_id.ids:
+                if x !=4 :
+                    if rec.date_from >= vals['date_from'] and rec.date_from <= vals['date_to'] and (rec.state == "validate" or rec.state== "confirm" ) and rec.type== "remove":
+                        holid_data+=rec.number_of_days_temp
+
 
         final_cal= (cal_work_days-weekend_holidays)-(holid_data+ch_date)
 
@@ -273,5 +284,5 @@ class odooHolidaysFun(models.Model):
 #################Check if the date of Holidays is in weekly holidays########
 class odooweeklyholidays(models.Model):
     _name = "odoo_hr.weeklyholidays"
-    day_of_week=fields.Selection(selection=[('Saturday','Saturday'),('Sunday','Sunday'),('Monday','Monday'),('Tuesday','Tuesday'),('Wednesday','Wednesday'),('Thursday','Thursday'),('Friday','Friday')],required=True)
+    day_of_week=fields.Selection(selection=[('Saturday','Saturday'),('Sunday','Sunday'),('Monday','Monday'),('Tuesday','Tuesday'),('Wednesday','Wednesday'),('Thursday','Thursday'),('Friday','Friday')])
     _sql_constraints =[('day_of_week', 'unique(day_of_week)',"Can't be duplicate value for this field!")]
