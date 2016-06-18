@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+         <record id="day1" model="odoo_hr.weeklyholidays">
+          <field name="day_of_week">Saturday</field>
+        </record>
+         <record id="day2" model="odoo_hr.weeklyholidays">
+          <field name="day_of_week">Friday</field>
+        </record>
+    </data>
+</openerp>
