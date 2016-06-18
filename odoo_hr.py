@@ -155,21 +155,19 @@ class odooAbsence(models.Model):
         listdate=[]
         holid_data=0
         weekend_holidays=0
+        holiday_no=0
         ######Calculate Working Days######################################
         from_date = datetime.strptime(vals['date_from'], DATETIME_FORMAT)
         to_date = datetime.strptime(vals['date_to'], DATETIME_FORMAT)
         working_date = to_date-from_date
         work_date = working_date.days + float(working_date.seconds) / 86400
         cal_work_days=(round(math.floor(work_date))+1)
-        print "calsvhfh"
-        print cal_work_days
         count_hol=self.env['odoo_hr.weeklyholidays'].search_count([])
 
         ######Count of holidays in this duration
         if cal_work_days % 7==0:
 
             weekend_holidays= count_hol*(cal_work_days/7)
-
         else:
             m= cal_work_days/7
             we_hol=math.floor(m)
@@ -216,7 +214,21 @@ class odooAbsence(models.Model):
                to_dt = datetime.strptime(yh.end_date, DATETIME_FORMAT)
                timedelta = to_dt-from_dt
                diff_day = timedelta.days + float(timedelta.seconds) / 86400
-               vals['absence']= vals['absence']-(round(math.floor(diff_day))+1)
+               ###########Check if national holiday is weekend holiday or not #######
+               for o in self.env['odoo_hr.weeklyholidays'].search([]):
+                   if yh.start_date == yh.end_date :
+                       if yh.start_date == o.day_of_week:
+                           holiday_no +=1
+                   else:
+                       date_test=yh.start_date
+                       while date_test <= yh.end_date:
+                           if date_test == o.day_of_week:
+                               holiday_no +=1
+                           date_test= date_test+ relativedelta(days=1)
+               if holiday_no ==0:
+                   vals['absence']= vals['absence']-(round(math.floor(diff_day))+1)
+               else:
+                   vals['absence'] = vals['absence'] -((round(math.floor(diff_day))+1)- holiday_no)
  #########Unpaid Holiday######################
 
         for rec in holiday_date:
