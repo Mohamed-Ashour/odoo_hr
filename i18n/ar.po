@@ -1,0 +1,498 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* odoo_hr
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-06-17 13:31+0000\n"
+"PO-Revision-Date: 2016-06-17 13:31+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: odoo_hr
+#: model:ir.model.fields,field_description:odoo_hr.field_hr_payslip_absence
+msgid "Absence"
+msgstr "الغياب"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.report_payslip
+msgid "Absence and Unpaid Holidays"
+msgstr "الغياب والإجازات غير المدفوعة"
+
+#. module: odoo_hr
+#: model:ir.actions.report.xml,name:odoo_hr.report_payslip_display
+msgid "Absence and Unpaid Holidays "
+msgstr "الغياب والإجازات غير المدفوعة"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.view_yearly_holidays_form
+msgid "Add Yearly Holiday"
+msgstr "اضافه اجازة سنويه"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.leaves_report
+msgid "Allocated Days"
+msgstr "الأيام المخصصة"
+
+#. module: odoo_hr
+#: model:ir.model,name:odoo_hr.model_hr_attendance
+msgid "Attendance"
+msgstr "حضور وإنصراف"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.track_tree_view
+msgid "Basic Information"
+msgstr "المعلومات الاساسية"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.view_employee_form_inherit
+msgid "CV"
+msgstr "السيرة الذاتية"
+
+#. module: odoo_hr
+#: sql_constraint:odoo_hr.odooholiday:0
+msgid "Can't be duplicate value for this field!"
+msgstr "لا يمكن ان تكرر هذه ف هذا المجال"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.view_hr_holidays_summary_employee
+msgid "Cancel"
+msgstr "الغاء"
+
+#. module: odoo_hr
+#: model:ir.model.fields,field_description:odoo_hr.field_hr_attendance_check_date
+msgid "Check date"
+msgstr "تحقق من تاريخ"
+
+#. module: odoo_hr
+#: model:ir.model,name:odoo_hr.model_hr_contract
+msgid "Contract"
+msgstr "العقد"
+
+#. module: odoo_hr
+#: model:ir.model.fields,field_description:odoo_hr.field_odoo_hr_exprience_create_uid
+#: model:ir.model.fields,field_description:odoo_hr.field_odoo_hr_odooholiday_create_uid
+msgid "Created by"
+msgstr "انشاء من خلال"
+
+#. module: odoo_hr
+#: model:ir.model.fields,field_description:odoo_hr.field_odoo_hr_exprience_create_date
+#: model:ir.model.fields,field_description:odoo_hr.field_odoo_hr_odooholiday_create_date
+msgid "Created on"
+msgstr "تم الانشاء"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.view_employee_form_inherit
+msgid "Date Attended"
+msgstr "تاريخ الحضور"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.view_yearly_holidays_form
+msgid "Date of Holiday"
+msgstr "تاريخ العطله"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.view_employee_form_inherit
+msgid "Degree"
+msgstr "درجه"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.more_details_report
+#: model:ir.ui.view,arch_db:odoo_hr.view_employee_form_inherit
+msgid "Degree Level"
+msgstr "الدرجه العلميه"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.employee_report
+#: model:ir.ui.view,arch_db:odoo_hr.more_details_report
+msgid "Department"
+msgstr "القسم"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.leaves_report
+msgid "Description"
+msgstr "وصف"
+
+#. module: odoo_hr
+#: model:ir.model.fields,field_description:odoo_hr.field_odoo_hr_odooholiday_display_name
+msgid "Display Name"
+msgstr "الاسم"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.more_details_report
+#: model:ir.ui.view,arch_db:odoo_hr.view_employee_form_inherit
+msgid "Education"
+msgstr "الدراسه"
+
+#. module: odoo_hr
+#: model:ir.model,name:odoo_hr.model_hr_employee
+#: model:ir.ui.view,arch_db:odoo_hr.leaves_report
+#: model:ir.ui.view,arch_db:odoo_hr.report_payslip
+msgid "Employee"
+msgstr "الموظف"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.employee_report
+msgid "Employee Reports"
+msgstr "تقارير الموظفين"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.view_attendance_who_inherit
+msgid "Employee attendances"
+msgstr "غيابات وحضور  الموظفين"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.leaves_report
+#: model:ir.ui.view,arch_db:odoo_hr.report_payslip
+msgid "End Date"
+msgstr "تاريخ الانتهاء"
+
+#. module: odoo_hr
+#: model:ir.model.fields,field_description:odoo_hr.field_odoo_hr_odooholiday_end_date
+msgid "End date"
+msgstr "تاريخ الانتهاء"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.view_employee_form_inherit
+msgid "Experience Years"
+msgstr "سنين الخيرة"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.track_tree_view
+msgid "Experience certificate"
+msgstr "شهاده الخيرة"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.view_employee_form_inherit
+msgid "Experiences"
+msgstr "الخبرات"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.track_tree_view
+msgid "Exprience"
+msgstr "الخبرة"
+
+#. module: odoo_hr
+#: model:ir.model.fields,field_description:odoo_hr.field_hr_payslip_extra_working_hours
+msgid "Extra working hours"
+msgstr "ساعات العمل الزياده"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.more_details_report
+#: model:ir.ui.view,arch_db:odoo_hr.view_employee_form_inherit
+msgid "Fields Study"
+msgstr "نوع القسم"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.view_employee_form_inherit
+msgid "From"
+msgstr "من"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.more_details_report
+#: model:ir.ui.view,arch_db:odoo_hr.view_employee_form_inherit
+msgid "Grade"
+msgstr "التقدير العام "
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.view_employee_form_inherit
+msgid "Graduation Certificate"
+msgstr "شهادة التخرج"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.view_yearly_holidays_form
+msgid "Holiday Name"
+msgstr ""
+
+#. module: odoo_hr
+#: model:ir.model.fields,field_description:odoo_hr.field_odoo_hr_odooholiday_id
+msgid "ID"
+msgstr "الرقم القومي"
+
+#. module: odoo_hr
+#: model:ir.model.fields,field_description:odoo_hr.field_hr_holidays_is_check
+msgid "Is check"
+msgstr "الاختيار"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.employee_report
+#: model:ir.ui.view,arch_db:odoo_hr.more_details_report
+msgid "Jop Title"
+msgstr "عنوان الوظيفة"
+
+#. module: odoo_hr
+#: model:ir.model.fields,field_description:odoo_hr.field_odoo_hr_odooholiday___last_update
+msgid "Last Modified on"
+msgstr "اخر تعديل"
+
+#. module: odoo_hr
+#: model:ir.model.fields,field_description:odoo_hr.field_odoo_hr_exprience_write_uid
+#: model:ir.model.fields,field_description:odoo_hr.field_odoo_hr_odooholiday_write_uid
+msgid "Last Updated by"
+msgstr "اخر تحديث"
+
+#. module: odoo_hr
+#: model:ir.model.fields,field_description:odoo_hr.field_odoo_hr_exprience_write_date
+#: model:ir.model.fields,field_description:odoo_hr.field_odoo_hr_odooholiday_write_date
+msgid "Last Updated on"
+msgstr "تاريخ آخر تحديث"
+
+#. module: odoo_hr
+#: model:ir.model.fields,field_description:odoo_hr.field_hr_attendance_late
+msgid "Late"
+msgstr "التاخير"
+
+#. module: odoo_hr
+#: model:ir.model,name:odoo_hr.model_hr_holidays
+msgid "Leave"
+msgstr "الاجازه"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.leaves_report
+msgid "Leave Type"
+msgstr "نوع الاجازه"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.leaves_report
+msgid "Leaves Reports"
+msgstr "تقارير الاجازات"
+
+#. module: odoo_hr
+#: model:ir.actions.act_window,name:odoo_hr.action_display_id
+msgid "Leaves Request"
+msgstr "طلب الاجازات"
+
+#. module: odoo_hr
+#: model:ir.actions.act_window,name:odoo_hr.action_hr_holidays_summary_employee
+msgid "Leaves by Department"
+msgstr "اجازات القسم"
+
+#. module: odoo_hr
+#: model:ir.ui.menu,name:odoo_hr.menu_account_central_journal
+#: model:ir.ui.view,arch_db:odoo_hr.view_hr_holidays_summary_employee
+msgid "Leaves by Employee"
+msgstr "اجازات الموظف"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.view_yearly_holidays
+msgid "List Of Yearly Holidays"
+msgstr "كل  الاجازات السنويه"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.more_details_report
+#: model:ir.ui.view,arch_db:odoo_hr.track_tree_view
+#: model:ir.ui.view,arch_db:odoo_hr.view_employee_form_inherit
+msgid "Location"
+msgstr "المكان"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.employee_report
+#: model:ir.ui.view,arch_db:odoo_hr.more_details_report
+msgid "Manager"
+msgstr "المدير"
+
+#. module: odoo_hr
+#: model:ir.actions.report.xml,name:odoo_hr.myodoo_more_details_employee
+#: model:ir.ui.view,arch_db:odoo_hr.more_details_report
+msgid "More Details About Employee"
+msgstr "معلومات اكثر عن الموظف"
+
+#. module: odoo_hr
+#: model:ir.model.fields,field_description:odoo_hr.field_odoo_hr_odooholiday_default_department_id
+msgid "My User"
+msgstr "المستخدم"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.employee_report
+msgid "Name"
+msgstr "الاسم"
+
+#. module: odoo_hr
+#: model:ir.model.fields,field_description:odoo_hr.field_odoo_hr_odooholiday_name
+msgid "Name of Holiday"
+msgstr "اسم الاجازه"
+
+#. module: odoo_hr
+#: model:ir.ui.menu,name:odoo_hr.menu_open_per
+msgid "National holidays"
+msgstr "اعياد الوطنيه"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.view_employee_form_inherit
+msgid "Note"
+msgstr "ملحوظة"
+
+#. module: odoo_hr
+#: model:ir.model.fields,field_description:odoo_hr.field_hr_attendance_num_log
+msgid "Num log"
+msgstr "عدد الحضور  والانصرف"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.report_payslip
+msgid "Number of Absence"
+msgstr "عدد الغياب"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.report_payslip
+msgid "Number of Unpaid Holidays"
+msgstr "عدد الاجازات الغير مدفوعة"
+
+#. module: odoo_hr
+#: model:ir.model.fields,field_description:odoo_hr.field_hr_attendance_over_time
+msgid "Over time"
+msgstr "الوقت الزياده"
+
+#. module: odoo_hr
+#: model:ir.model,name:odoo_hr.model_hr_payslip
+msgid "Pay Slip"
+msgstr "الراتب"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.report_payslip
+msgid "Payslip Name"
+msgstr "اسم الراتب"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.view_hr_holidays_summary_employee
+msgid "Print"
+msgstr "يطبع"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.more_details_report
+msgid "Public Information"
+msgstr "معلومات عامه"
+
+#. module: odoo_hr
+#: model:ir.actions.report.xml,name:odoo_hr.myodoo_first_report_leaves
+msgid "Report"
+msgstr "تقارير "
+
+#. module: odoo_hr
+#: model:ir.actions.report.xml,name:odoo_hr.myodoo_first_report_employee
+msgid "Report Employee"
+msgstr "تقرير موظف"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.leaves_report
+#: model:ir.ui.view,arch_db:odoo_hr.report_payslip
+msgid "Start Date"
+msgstr "تاريخ البدا"
+
+#. module: odoo_hr
+#: model:ir.model.fields,field_description:odoo_hr.field_odoo_hr_odooholiday_start_date
+msgid "Start date"
+msgstr "تاريخ البدا"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.leaves_report
+msgid "Status"
+msgstr "الحاله"
+
+#. module: odoo_hr
+#: model:ir.model.fields,field_description:odoo_hr.field_hr_employee_sub_parent_id
+msgid "Sub Manager"
+msgstr "مساعد المدير "
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.track_tree_view
+msgid "Time Period"
+msgstr "الفترة الزمنية"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.view_employee_form_inherit
+msgid "To"
+msgstr "من"
+
+#. module: odoo_hr
+#: model:ir.model.fields,field_description:odoo_hr.field_hr_contract_totalMonth
+msgid "Total Month"
+msgstr "عدد الشهور"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.more_details_report
+#: model:ir.ui.view,arch_db:odoo_hr.view_employee_form_inherit
+msgid "University"
+msgstr "الجامعة"
+
+#. module: odoo_hr
+#: model:ir.model.fields,field_description:odoo_hr.field_hr_payslip_unpaid_holiday
+msgid "Unpaid holiday"
+msgstr "اجازه غير مدفوعة"
+
+#. module: odoo_hr
+#: model:ir.model.fields,field_description:odoo_hr.field_hr_contract_variable
+msgid "Variable"
+msgstr "المتغير"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.employee_report
+#: model:ir.ui.view,arch_db:odoo_hr.more_details_report
+msgid "Work Email"
+msgstr "البريد الالكتروني للعمل"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.more_details_report
+msgid "Work Locations"
+msgstr "مكان العمل"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.employee_report
+#: model:ir.ui.view,arch_db:odoo_hr.more_details_report
+msgid "Work Phone"
+msgstr "تلفون العمل"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.more_details_report
+msgid "Working Adress"
+msgstr "عنوان مكان العمل"
+
+#. module: odoo_hr
+#: model:ir.actions.act_window,name:odoo_hr.action_display_id_query
+msgid "Yearly Holidays"
+msgstr "الاجازات السنويه"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.view_employee_form_inherit
+msgid "Your Attachments"
+msgstr "المرفقات الخاصة بك"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.track_tree_view
+msgid "days"
+msgstr "الايام"
+
+#. module: odoo_hr
+#: model:ir.model.fields,field_description:odoo_hr.field_hr_attendance_end_time
+msgid "end_time"
+msgstr "انتهاء  الوقت"
+
+#. module: odoo_hr
+#: model:ir.model,name:odoo_hr.model_odoo_hr_exprience
+msgid "odoo_hr.exprience"
+msgstr ""
+
+#. module: odoo_hr
+#: model:ir.model,name:odoo_hr.model_odoo_hr_odooholiday
+msgid "odoo_hr.odooholiday"
+msgstr ""
+
+#. module: odoo_hr
+#: model:ir.model.fields,field_description:odoo_hr.field_hr_attendance_start_time
+msgid "start_time"
+msgstr "ابتداء الوقت"
+
+#. module: odoo_hr
+#: model:ir.model.fields,field_description:odoo_hr.field_hr_attendance_time
+msgid "time"
+msgstr "الوقت"
+
+#. module: odoo_hr
+#: model:ir.ui.view,arch_db:odoo_hr.more_details_report
+msgid "work Mobile"
+msgstr "رقم موبيل العمل"
