@@ -22,6 +22,24 @@
              <field name="domain">[('number_of_days','&lt;=',-15),('state','!=','validate')]</field>
 
         </record>
+         <!--Weekly Holidays-->
+        <record model="ir.actions.act_window" id="action_display_id_weekly">
+            <field name="name">Weekend</field>
+            <field name="res_model">odoo_hr.weeklyholidays</field>
+            <field name="view_type">form</field>
+         </record>
+         <record id="view_weekend_holidays" model="ir.ui.view">
+            <field name="name">hr.yearly.holidays</field>
+            <field name="model">odoo_hr.weeklyholidays</field>
+             <field name="arch" type="xml">
+                <tree string="List Of Weekends">
+                    <field name="day_of_week" attrs="{'required':True}"/>
+
+
+                </tree>
+            </field>
+        </record>
+        <!--National Holidays-->
 
         <record model="ir.actions.act_window" id="action_display_id_query">
             <field name="name">Yearly Holidays</field>
@@ -95,6 +113,8 @@
 
         <menuitem name="National holidays" parent="hr_holidays.menu_hr_holidays_root" id="menu_open_per"
          action="action_display_id_query"/>
+        <menuitem name="Weekend" parent="hr_holidays.menu_hr_holidays_root" id="menu_open_peration_date"
+         action="action_display_id_weekly"/>
         <!--
          Payslips Report
 

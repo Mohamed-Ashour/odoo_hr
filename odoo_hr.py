@@ -4,7 +4,8 @@ from time import strptime
 from datetime import datetime
 from datetime import date
 from  datetime import time
-from datetime import timedelta
+
+from dateutil.relativedelta import relativedelta
 
 
 import exceptions
@@ -144,14 +145,36 @@ class odooAbsence(models.Model):
     unpaid_holiday=fields.Integer()
     @api.model
     def create(self, vals):
-        vals['absence']=5
+
         ch_date=0
         ho_date=0
         unpaid=0
+        Week_hol=0
         DATETIME_FORMAT = "%Y-%m-%d"
         attendance_data=self.env["hr.attendance"].search([])
         listdate=[]
         holid_data=0
+        weekend_holidays=0
+        ######Calculate Working Days######################################
+        from_date = datetime.strptime(vals['date_from'], DATETIME_FORMAT)
+        to_date = datetime.strptime(vals['date_to'], DATETIME_FORMAT)
+        working_date = to_date-from_date
+        work_date = working_date.days + float(working_date.seconds) / 86400
+        cal_work_days=(round(math.floor(work_date))+1)
+        print "calsvhfh"
+        print cal_work_days
+        count_hol=self.env['odoo_hr.weeklyholidays'].search_count([])
+
+        ######Count of holidays in this duration
+        if cal_work_days % 7==0:
+
+            weekend_holidays= count_hol*(cal_work_days/7)
+
+        else:
+            m= cal_work_days/7
+            we_hol=math.floor(m)
+            weekend_holidays= we_hol*count_hol
+ #########Compute weekly Holidays In this duration################
 
         count=0
         for rec in attendance_data:
@@ -178,7 +201,8 @@ class odooAbsence(models.Model):
                     if rec.date_from >= vals['date_from'] and rec.date_from <= vals['date_to'] and (rec.state == "validate" or rec.state== "confirm" ) and rec.type== "remove":
                         holid_data+=rec.number_of_days_temp
 
-        final_cal= 20-(holid_data+ch_date)
+        final_cal= (cal_work_days-weekend_holidays)-(holid_data+ch_date)
+
         if final_cal <0 :
             vals['absence']= -1 * final_cal
         else:
@@ -189,7 +213,6 @@ class odooAbsence(models.Model):
             if yh.start_date > vals['date_from'] and yh.end_date <= vals['date_to']:
                DATETIME_FORMAT = "%Y-%m-%d"
                from_dt = datetime.strptime(yh.start_date, DATETIME_FORMAT)
-               
                to_dt = datetime.strptime(yh.end_date, DATETIME_FORMAT)
                timedelta = to_dt-from_dt
                diff_day = timedelta.days + float(timedelta.seconds) / 86400
@@ -237,5 +260,8 @@ class odooHolidaysFun(models.Model):
     start_date=fields.Date(required=True)
     end_date=fields.Date(required=True)
     _sql_constraints =[('name', 'unique(name)',"Can't be duplicate value for this field!"),('start_date', 'unique(start_date)',"Can't be duplicate value for this field!"),('end_date', 'unique(end_date)',"Can't be duplicate value for this field!")]
-
-
+#################Check if the date of Holidays is in weekly holidays########
+class odooweeklyholidays(models.Model):
+    _name = "odoo_hr.weeklyholidays"
+    day_of_week=fields.Selection(selection=[('Saturday','Saturday'),('Sunday','Sunday'),('Monday','Monday'),('Tuesday','Tuesday'),('Wednesday','Wednesday'),('Thursday','Thursday'),('Friday','Friday')],required=True)
+    _sql_constraints =[('day_of_week', 'unique(day_of_week)',"Can't be duplicate value for this field!")]
