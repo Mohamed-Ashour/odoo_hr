@@ -226,12 +226,12 @@ class odooAbsence(models.Model):
                ###########Check if national holiday is weekend holiday or not #######
                for o in self.env['odoo_hr.weeklyholidays'].search([]):
                    if yh.start_date == yh.end_date :
-                       if yh.start_date == o.day_of_week:
+                       if calendar.day_name[from_dt.weekday()] == o.day_of_week:
                            holiday_no +=1
                    else:
                        date_test=yh.start_date
                        while date_test <= yh.end_date:
-                           if date_test == o.day_of_week:
+                           if calendar.day_name[from_dt.weekday()] == o.day_of_week:
                                holiday_no +=1
                            date_test= date_test+ relativedelta(days=1)
                if holiday_no ==0:
@@ -286,3 +286,22 @@ class odooweeklyholidays(models.Model):
     _name = "odoo_hr.weeklyholidays"
     day_of_week=fields.Selection(selection=[('Saturday','Saturday'),('Sunday','Sunday'),('Monday','Monday'),('Tuesday','Tuesday'),('Wednesday','Wednesday'),('Thursday','Thursday'),('Friday','Friday')])
     _sql_constraints =[('day_of_week', 'unique(day_of_week)',"Can't be duplicate value for this field!")]
+########### check if user choose to take holidays
+class odoocheckholidays(models.Model):
+    _inherit = "hr.holidays"
+    @api.model
+    def create(self, vals):
+               DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
+               from_dt = datetime.strptime(vals['date_from'], DATETIME_FORMAT)
+               to_dt = datetime.strptime(vals['date_to'], DATETIME_FORMAT)
+               timedelta = to_dt-from_dt
+               diff_day = timedelta.days + float(timedelta.seconds) / 86400
+               if (round(math.floor(diff_day))+1) == 1 :
+                   for o in self.env['odoo_hr.weeklyholidays'].search([]):
+                     if calendar.day_name[from_dt.weekday()]== o.day_of_week:
+                          raise exceptions.ValidationError("This day is weekend ")
+                   #for o in self.env['odoo_hr.odooholiday'].search([]):
+                   #     if calendar.day_name[from_dt.weekday()]== o.start_date:
+                   #       raise exceptions.ValidationError("This day is national holiday")
+
+               return super(odoocheckholidays,self).create(vals)

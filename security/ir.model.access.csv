@@ -1,3 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_myodoo_weekly_manage,odoo_hr_manager_weekly,model_odoo_hr_weeklyholidays,base.group_hr_manager,1,1,1,1
 access_myodoo_holiday_manage,odoo_hr_manager_holiday,model_odoo_hr_odooholiday,base.group_hr_manager,1,1,1,1
+access_myodoo_payslip_manager,odoo_hr_manager_payslip,model_hr_payslip,base.group_hr_manager,1,1,1,1
+access_myodoo_exprience_manager,odoo_hr_manager_exprience,model_odoo_hr_exprience,base.group_hr_manager,1,1,1,1
+
