@@ -30,7 +30,7 @@
              <field name="inherit_id" ref="hr_attendance.view_attendance_who"/>
             <field eval="3" name="priority"/>
             <field name="arch" type="xml">
-                <tree string="Employee attendances">
+                <tree >
                     <field name="image" widget="image" display="thumbnail" class="oe_avatar oe_right" readonly="1"/>
                 </tree>
             </field>

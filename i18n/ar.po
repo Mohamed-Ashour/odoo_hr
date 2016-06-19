@@ -142,10 +142,7 @@ msgstr "الموظف"
 msgid "Employee Reports"
 msgstr "تقارير الموظفين"
 
-#. module: odoo_hr
-#: model:ir.ui.view,arch_db:odoo_hr.view_attendance_who_inherit
-msgid "Employee attendances"
-msgstr "غيابات وحضور  الموظفين"
+
 
 #. module: odoo_hr
 #: model:ir.ui.view,arch_db:odoo_hr.leaves_report
