@@ -217,7 +217,7 @@ class odooAbsence(models.Model):
         ##############Yearly HOlidayss###########################
         yearly_holidays=self.env['odoo_hr.odooholiday'].search([])
         for yh in yearly_holidays:
-            if yh.start_date > vals['date_from'] and yh.end_date <= vals['date_to']:
+            if yh.start_date >= vals['date_from'] and yh.end_date <= vals['date_to']:
                DATETIME_FORMAT = "%Y-%m-%d"
                from_dt = datetime.strptime(yh.start_date, DATETIME_FORMAT)
                to_dt = datetime.strptime(yh.end_date, DATETIME_FORMAT)
@@ -225,19 +225,31 @@ class odooAbsence(models.Model):
                diff_day = timedelta.days + float(timedelta.seconds) / 86400
                ###########Check if national holiday is weekend holiday or not #######
                for o in self.env['odoo_hr.weeklyholidays'].search([]):
-                   if yh.start_date == yh.end_date :
+                 
+                   print yh.start_date
+                   print yh.end_date
+                   date_test= datetime.strptime(yh.start_date,"%Y-%m-%d" )
+                   if date_test == yh.end_date :
                        if calendar.day_name[from_dt.weekday()] == o.day_of_week:
                            holiday_no +=1
+
                    else:
-                       date_test=yh.start_date
-                       while date_test <= yh.end_date:
-                           if calendar.day_name[from_dt.weekday()] == o.day_of_week:
+                       date_test= datetime.strptime(yh.start_date, "%Y-%m-%d")
+                       check_end= datetime.strptime(yh.end_date, "%Y-%m-%d")
+                       while date_test <= check_end:
+                           print calendar.day_name[from_dt.weekday()]
+                           print o.day_of_week
+                           if calendar.day_name[date_test.weekday()] == o.day_of_week:
                                holiday_no +=1
-                           date_test= date_test+ relativedelta(days=1)
+
+                           v = datetime.strptime(yh.start_date,"%Y-%m-%d" )
+
+                           date_test= datetime.combine(date_test, datetime.min.time())+ relativedelta(days=1)
                if holiday_no ==0:
                    vals['absence']= vals['absence']-(round(math.floor(diff_day))+1)
                else:
                    vals['absence'] = vals['absence'] -((round(math.floor(diff_day))+1)- holiday_no)
+
  #########Unpaid Holiday######################
 
         for rec in holiday_date:
